@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer style={{
+    <footer id="contact" style={{
       backgroundColor: 'var(--color-warm-cream)',
       padding: '5vh 5vw 2vh 5vw',
       borderTop: '1px solid rgba(23, 39, 29, 0.1)',

@@ -25,8 +25,14 @@ export default function Navbar() {
       
       const potsElement = document.getElementById('pots');
       const featuredElement = document.getElementById('featured');
+      const aboutElement = document.getElementById('about');
+      const contactElement = document.getElementById('contact');
       
-      if (potsElement && potsElement.getBoundingClientRect().top <= window.innerHeight / 2) {
+      if (contactElement && contactElement.getBoundingClientRect().top <= window.innerHeight - 100) {
+        setActiveSection('contact');
+      } else if (aboutElement && aboutElement.getBoundingClientRect().top <= window.innerHeight / 2) {
+        setActiveSection('about');
+      } else if (potsElement && potsElement.getBoundingClientRect().top <= window.innerHeight / 2) {
         setActiveSection('pots');
       } else if (featuredElement && featuredElement.getBoundingClientRect().top <= window.innerHeight / 2) {
         setActiveSection('plants');
@@ -165,6 +171,10 @@ export default function Navbar() {
                   document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' });
                 } else if (item === 'Pots') {
                   document.getElementById('pots')?.scrollIntoView({ behavior: 'smooth' });
+                } else if (item === 'About') {
+                  document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+                } else if (item === 'Contact') {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                 } else if (item === 'Home') {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
