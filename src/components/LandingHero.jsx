@@ -16,6 +16,10 @@ export default function LandingHero() {
   const succulentRef = useRef(null);
   const hangLeftRef = useRef(null);
   const hangRightRef = useRef(null);
+  const vineRef = useRef(null);
+  const leavesRef = useRef(null);
+  const sunlightRef = useRef(null);
+  const particlesRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -87,10 +91,24 @@ export default function LandingHero() {
         // Hanging Plants
         gsap.to(hangLeftRef.current, { rotateZ: x * 1.5, x: x * 2, y: y * 1, scaleX: -1, duration: 1.5, ease: 'power2.out' });
         gsap.to(hangRightRef.current, { rotateZ: x * 2, x: x * 3, y: y * 1, duration: 1.4, ease: 'power2.out' });
+        // Sunlight & Particles (slow, background)
+        gsap.to(sunlightRef.current, { x: x * 5, y: y * 5, duration: 2, ease: 'power2.out' });
+        gsap.to(particlesRef.current, { x: x * 8, y: y * 8, duration: 2.5, ease: 'power2.out' });
+
+        // Branch / Vine
+        gsap.to(vineRef.current, { x: x * 15, y: y * 10, rotateZ: x * 1.5, duration: 1.2, ease: 'power2.out' });
+
+        // Floating Leaves
+        gsap.to(leavesRef.current, { x: x * 30, y: y * 25, rotateZ: x * 5, duration: 1, ease: 'power2.out' });
       };
 
       const onMouseLeave = () => {
-        gsap.to([circleRef.current, monsteraRef.current, snakePlantRef.current, pothosRef.current, succulentRef.current, badgeRef.current, hangRightRef.current], {
+        gsap.to([
+          circleRef.current, monsteraRef.current, snakePlantRef.current, 
+          pothosRef.current, succulentRef.current, badgeRef.current, 
+          hangRightRef.current, vineRef.current, leavesRef.current, 
+          sunlightRef.current, particlesRef.current
+        ], {
           x: 0,
           y: 0,
           rotateX: 0,
@@ -124,13 +142,19 @@ export default function LandingHero() {
         gsap.to(succulentRef.current, { y: scrollY * -0.35, duration: 0.5 });
         gsap.to(hangLeftRef.current, { y: scrollY * -0.2, duration: 0.5 });
         gsap.to(hangRightRef.current, { y: scrollY * -0.25, duration: 0.5 });
+        gsap.to(vineRef.current, { y: scrollY * -0.2, duration: 0.5 });
+        gsap.to(leavesRef.current, { y: scrollY * -0.4, duration: 0.5 });
+        gsap.to(sunlightRef.current, { y: scrollY * -0.05, duration: 0.5 });
+        gsap.to(particlesRef.current, { y: scrollY * -0.1, duration: 0.5 });
       };
 
-      // Gentle floating animation
-      gsap.to(monsteraRef.current, { y: '+=10', duration: 3, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-      gsap.to(snakePlantRef.current, { y: '+=8', duration: 2.5, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.5 });
-      gsap.to(pothosRef.current, { y: '+=12', duration: 3.5, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 1 });
-      gsap.to(succulentRef.current, { y: '+=6', duration: 2.8, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.2 });
+      // Gentle floating animation (using yPercent to avoid conflict with mouse/scroll y)
+      gsap.to(monsteraRef.current, { yPercent: 2, duration: 3, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+      gsap.to(snakePlantRef.current, { yPercent: 1.5, duration: 2.5, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.5 });
+      gsap.to(pothosRef.current, { yPercent: 2.5, duration: 3.5, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 1 });
+      gsap.to(succulentRef.current, { yPercent: 1.5, duration: 2.8, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.2 });
+      gsap.to(vineRef.current, { rotateZ: '+=1.5', yPercent: 1, duration: 3.2, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.3 });
+      gsap.to(leavesRef.current, { yPercent: 3, rotateZ: '+=3', duration: 4, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.7 });
 
       // Subtle swaying for hanging plants
       gsap.to(hangLeftRef.current, { rotateZ: '+=1', duration: 4, yoyo: true, repeat: -1, ease: 'sine.inOut' });
@@ -214,8 +238,24 @@ export default function LandingHero() {
           {/* Sage Green Circular Backdrop behind the center plant composition */}
           <div ref={circleRef} className="hero-sage-circle" />
           
+          {/* Sunlight & Particles */}
+          <div ref={sunlightRef} className="hero-sunlight" />
+          <div ref={particlesRef} className="hero-particles">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className={`hero-particle particle-${i + 1}`} />
+            ))}
+          </div>
+          
           {/* Reconstructed Multi-Layer Botanical Composition */}
           <div className="hero-plant-composition">
+            {/* 1. Background Vine/Branch */}
+            <img 
+              ref={vineRef}
+              src="/hero-main/branch extra.png"
+              alt="Decorative Branch"
+              className="hero-plant-vine"
+            />
+
             {/* 2. Main Monstera (Centered on top of the Pedestal) */}
             <img 
               ref={monsteraRef}

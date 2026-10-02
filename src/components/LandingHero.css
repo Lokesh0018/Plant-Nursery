@@ -148,7 +148,7 @@
   border-radius: 50%;
   z-index: 1;
   bottom: 8%;
-  left: 46%;
+  left: 38%;
   transform: translateX(-50%);
   pointer-events: none;
 }
@@ -158,7 +158,7 @@
   width: 100%;
   max-width: 540px;
   height: 460px;
-  margin-right: 34%;
+  margin-right: 42%;
   z-index: 2;
   pointer-events: none;
   user-select: none;
@@ -228,10 +228,69 @@
   filter: drop-shadow(0 15px 25px rgba(22, 54, 36, 0.2));
 }
 
+.hero-plant-vine {
+  position: absolute;
+  top: -5%;
+  right: 15%;
+  width: 35%;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+  filter: drop-shadow(0 20px 30px rgba(22, 54, 36, 0.1));
+  opacity: 0.9;
+}
+
+
+.hero-sunlight {
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 80%;
+  height: 150%;
+  background: radial-gradient(ellipse at top right, rgba(255, 250, 230, 0.45) 0%, rgba(255, 250, 230, 0) 60%);
+  z-index: 1;
+  pointer-events: none;
+  transform: rotate(-25deg);
+  mix-blend-mode: overlay;
+}
+
+.hero-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-particle {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+.particle-1 { top: 20%; left: 60%; width: 4px; height: 4px; animation: floatParticle 12s infinite alternate ease-in-out; }
+.particle-2 { top: 40%; left: 80%; width: 6px; height: 6px; animation: floatParticle 15s infinite alternate ease-in-out reverse; }
+.particle-3 { top: 30%; left: 50%; width: 3px; height: 3px; animation: floatParticle 10s infinite alternate ease-in-out; }
+.particle-4 { top: 60%; left: 70%; width: 5px; height: 5px; animation: floatParticle 18s infinite alternate ease-in-out reverse; }
+.particle-5 { top: 15%; left: 75%; width: 4px; height: 4px; animation: floatParticle 14s infinite alternate ease-in-out; }
+.particle-6 { top: 50%; left: 90%; width: 7px; height: 7px; animation: floatParticle 16s infinite alternate ease-in-out reverse; }
+.particle-7 { top: 70%; left: 55%; width: 3px; height: 3px; animation: floatParticle 11s infinite alternate ease-in-out; }
+.particle-8 { top: 25%; left: 85%; width: 5px; height: 5px; animation: floatParticle 13s infinite alternate ease-in-out reverse; }
+
+@keyframes floatParticle {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0.2; }
+  50% { opacity: 0.8; }
+  100% { transform: translate(-30px, 40px) rotate(180deg); opacity: 0.1; }
+}
+
 .hero-badge {
   position: absolute;
-  top: 2%;
-  left: 42%;
+  top: 18%;
+  left: 46%;
   font-family: var(--font-handwriting), cursive;
   font-size: 1.25rem;
   color: var(--dark-green);
