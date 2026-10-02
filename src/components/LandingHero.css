@@ -175,6 +175,26 @@
   filter: drop-shadow(0 30px 40px rgba(22, 54, 36, 0.15));
 }
 
+.hero-hang {
+  position: absolute;
+  top: -60px;
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 15px 25px rgba(22, 54, 36, 0.15));
+  transform-origin: top center;
+}
+
+.hero-hang-left {
+  left: -2%;
+}
+
+.hero-hang-right {
+  right: -2%;
+}
+
 .hero-plant-snake {
   position: absolute;
   top: 45%;
@@ -484,4 +504,10 @@
   object-fit: contain;
   z-index: 3;
   transform: rotate(2deg);
+}
+
+@media (max-width: 1024px) {
+  .hero-hang {
+    display: none;
+  }
 }

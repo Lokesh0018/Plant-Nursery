@@ -13,9 +13,13 @@ export default function LandingHero() {
   const monsteraRef = useRef(null);
   const pothosRef = useRef(null);
   const snakePlantRef = useRef(null);
+  const hangLeftRef = useRef(null);
+  const hangRightRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      gsap.set(hangLeftRef.current, { scaleX: -1 });
+
       const onMouseMove = (e) => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 768) {
           return;
@@ -69,15 +73,29 @@ export default function LandingHero() {
           duration: 1,
           ease: 'power2.out'
         });
+
+        // Hanging Plants
+        gsap.to(hangLeftRef.current, { rotateZ: x * 1.5, x: x * 2, y: y * 1, scaleX: -1, duration: 1.5, ease: 'power2.out' });
+        gsap.to(hangRightRef.current, { rotateZ: x * 2, x: x * 3, y: y * 1, duration: 1.4, ease: 'power2.out' });
       };
 
       const onMouseLeave = () => {
-        gsap.to([circleRef.current, monsteraRef.current, snakePlantRef.current, pothosRef.current, badgeRef.current], {
+        gsap.to([circleRef.current, monsteraRef.current, snakePlantRef.current, pothosRef.current, badgeRef.current, hangRightRef.current], {
           x: 0,
           y: 0,
           rotateX: 0,
           rotateY: 0,
           rotateZ: 0,
+          duration: 1.5,
+          ease: 'power3.out'
+        });
+        gsap.to(hangLeftRef.current, {
+          x: 0,
+          y: 0,
+          rotateX: 0,
+          rotateY: 0,
+          rotateZ: 0,
+          scaleX: -1,
           duration: 1.5,
           ease: 'power3.out'
         });
@@ -93,12 +111,18 @@ export default function LandingHero() {
         gsap.to(monsteraRef.current, { y: scrollY * -0.15, duration: 0.5 });
         gsap.to(snakePlantRef.current, { y: scrollY * -0.25, duration: 0.5 });
         gsap.to(pothosRef.current, { y: scrollY * -0.3, duration: 0.5 });
+        gsap.to(hangLeftRef.current, { y: scrollY * -0.2, duration: 0.5 });
+        gsap.to(hangRightRef.current, { y: scrollY * -0.25, duration: 0.5 });
       };
 
       // Gentle floating animation
       gsap.to(monsteraRef.current, { y: '+=10', duration: 3, yoyo: true, repeat: -1, ease: 'sine.inOut' });
       gsap.to(snakePlantRef.current, { y: '+=8', duration: 2.5, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.5 });
       gsap.to(pothosRef.current, { y: '+=12', duration: 3.5, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 1 });
+
+      // Subtle swaying for hanging plants
+      gsap.to(hangLeftRef.current, { rotateZ: '+=1', duration: 4, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+      gsap.to(hangRightRef.current, { rotateZ: '+=1.2', duration: 4.5, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.5 });
 
       if (heroRef.current) {
         heroRef.current.addEventListener('mousemove', onMouseMove);
@@ -120,6 +144,10 @@ export default function LandingHero() {
 
   return (
     <section ref={heroRef} className="hero-section">
+      {/* Hanging Plants */ }
+      <img ref={hangLeftRef} src="/hang.png" className="hero-hang hero-hang-left" alt="" aria-hidden="true" />
+      <img ref={hangRightRef} src="/hang.png" className="hero-hang hero-hang-right" alt="" aria-hidden="true" />
+
       {/* Main Hero Row: Left (38%) & Right (62%) */}
       <div className="hero-main-row">
         {/* Left Column - Typography & CTA (38%) */}
