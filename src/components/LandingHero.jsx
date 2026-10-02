@@ -152,8 +152,12 @@ export default function LandingHero() {
         gsap.to(snakePlantRef.current, { y: scrollY * -0.25, duration: 0.5 });
         gsap.to(pothosRef.current, { y: scrollY * -0.3, duration: 0.5 });
         gsap.to(succulentRef.current, { y: scrollY * -0.35, duration: 0.5 });
-        gsap.to(hangLeftRef.current, { y: scrollY * 1.01, duration: 0.5 });
-        gsap.to(hangRightRef.current, { y: scrollY * 1.01, duration: 0.5 });
+        
+        // Let the hanging plants drop down just enough to clear the navbar, then stay fixed
+        const additionalDrop = Math.min(scrollY * 0.3, 100);
+        gsap.to(hangLeftRef.current, { y: scrollY + additionalDrop, duration: 0.5 });
+        gsap.to(hangRightRef.current, { y: scrollY + additionalDrop, duration: 0.5 });
+        
         gsap.to(leavesRef.current, { y: scrollY * -0.4, duration: 0.5 });
         gsap.to(sunlightRef.current, { y: scrollY * -0.05, duration: 0.5 });
         gsap.to(particlesRef.current, { y: scrollY * -0.1, duration: 0.5 });
@@ -225,7 +229,10 @@ export default function LandingHero() {
           
           {/* CTA & Trust/Social Proof */}
           <div>
-            <button className="hero-cta-button">
+            <button 
+              className="hero-cta-button"
+              onClick={() => document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <span>Explore Collection</span>
               <ArrowRight size={16} className="cta-arrow" />
             </button>
@@ -310,7 +317,11 @@ export default function LandingHero() {
           </div>
 
           {/* Right Floating Card 1: Low Maintenance Plants */}
-          <div className="hero-floating-card hero-floating-card-1">
+          <div 
+            className="hero-floating-card hero-floating-card-1"
+            style={{ cursor: 'pointer' }}
+            onClick={() => document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' })}
+          >
             {/* Background Blob/Circle behind the image */}
             <div className="hero-card-blob hero-card-blob-1" />
 

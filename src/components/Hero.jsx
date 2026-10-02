@@ -59,7 +59,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={containerRef} style={{
+    <section id="featured" ref={containerRef} style={{
       height: '100vh',
       display: 'flex',
       alignItems: 'center',

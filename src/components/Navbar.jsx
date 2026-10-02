@@ -1,22 +1,77 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Search, ArrowRight } from 'lucide-react';
 
 export default function Navbar() {
   const darkGreen = '#163624';
   const textMuted = '#4a5b4c';
 
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const navRef = React.useRef(null);
+  const searchInputRef = React.useRef(null);
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+      
+      const featuredElement = document.getElementById('featured');
+      if (featuredElement) {
+        const rect = featuredElement.getBoundingClientRect();
+        // If the top of the featured section is above the middle of the viewport
+        if (rect.top <= window.innerHeight / 2) {
+          setActiveSection('plants');
+        } else {
+          setActiveSection('home');
+        }
+      } else {
+        if (window.scrollY > window.innerHeight / 2) {
+           setActiveSection('plants');
+        } else {
+           setActiveSection('home');
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    // Initial check
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Update sliding indicator position
+  useEffect(() => {
+    if (navRef.current) {
+      const activeItem = navRef.current.querySelector('.active-nav-item');
+      if (activeItem) {
+        setIndicatorStyle({
+          left: activeItem.offsetLeft + (activeItem.offsetWidth / 2) - 2,
+          width: 4,
+          opacity: 1
+        });
+      } else {
+        setIndicatorStyle(prev => ({ ...prev, opacity: 0 }));
+      }
+    }
+  }, [activeSection, isScrolled]);
+
   return (
     <nav style={{
-      position: 'absolute',
+      position: 'fixed',
       top: 0,
       left: 0,
       width: '100%',
-      padding: '1.75rem 5vw 1rem 5vw',
+      padding: isScrolled ? '1rem 5vw' : '1.75rem 5vw 1rem 5vw',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       zIndex: 100,
-      backgroundColor: 'transparent'
+      backgroundColor: isScrolled ? 'rgba(252, 251, 246, 0.85)' : 'transparent',
+      backdropFilter: isScrolled ? 'blur(16px)' : 'none',
+      WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
+      boxShadow: isScrolled ? '0 4px 20px rgba(22, 54, 36, 0.04)' : 'none',
+      borderBottom: isScrolled ? '1px solid rgba(22, 54, 36, 0.05)' : '1px solid transparent',
+      transition: 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)'
     }}>
       {/* Brand Logo */}
       <div style={{
@@ -61,9 +116,9 @@ export default function Navbar() {
           </span>
         </div>
       </div>
-      
       {/* Center Nav Links */}
-      <ul style={{
+      <ul ref={navRef} style={{
+        position: 'relative',
         display: 'flex',
         alignItems: 'center',
         gap: '2.5rem',
@@ -73,42 +128,107 @@ export default function Navbar() {
         margin: 0,
         padding: 0
       }}>
-        <li style={{
-          cursor: 'pointer',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          fontWeight: '600',
-          color: darkGreen
-        }}>
-          <span>Home</span>
-          <span style={{
-            width: '4px',
-            height: '4px',
-            backgroundColor: darkGreen,
-            borderRadius: '50%',
-            marginTop: '3px'
-          }}></span>
-        </li>
-        <li style={{ cursor: 'pointer', color: textMuted, transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = darkGreen} onMouseLeave={(e) => e.currentTarget.style.color = textMuted}>Shop</li>
-        <li style={{ cursor: 'pointer', color: textMuted, transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = darkGreen} onMouseLeave={(e) => e.currentTarget.style.color = textMuted}>About</li>
-        <li style={{ cursor: 'pointer', color: textMuted, transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = darkGreen} onMouseLeave={(e) => e.currentTarget.style.color = textMuted}>Care Guide</li>
-        <li style={{ cursor: 'pointer', color: textMuted, transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = darkGreen} onMouseLeave={(e) => e.currentTarget.style.color = textMuted}>Contact</li>
+        {/* Sliding Indicator Dot */}
+        <div style={{
+          position: 'absolute',
+          bottom: '-7px',
+          height: '4px',
+          backgroundColor: darkGreen,
+          borderRadius: '50%',
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          pointerEvents: 'none',
+          ...indicatorStyle
+        }} />
+
+        {['Home', 'Plants', 'Pots', 'About', 'Contact'].map((item) => {
+          const isActive = activeSection === item.toLowerCase();
+          return (
+            <li 
+              key={item}
+              className={isActive ? 'active-nav-item' : ''}
+              style={{
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                fontWeight: isActive ? '600' : '500',
+                color: isActive ? darkGreen : textMuted,
+                transition: 'all 0.3s ease',
+                position: 'relative'
+              }}
+              onMouseEnter={(e) => { if(!isActive) e.currentTarget.style.color = darkGreen }}
+              onMouseLeave={(e) => { if(!isActive) e.currentTarget.style.color = textMuted }}
+              onClick={() => {
+                if (item === 'Plants') {
+                  document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' });
+                } else if (item === 'Home') {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+            >
+              <span>{item}</span>
+            </li>
+          );
+        })}
       </ul>
       
       {/* Right Controls */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-        <button style={{
-          border: 'none',
-          background: 'transparent',
-          cursor: 'pointer',
-          color: '#2a3a2d',
+        {/* Animated Search Bar */}
+        <div style={{
           display: 'flex',
           alignItems: 'center',
-          padding: '4px'
-        }} aria-label="Search">
-          <Search size={19} strokeWidth={1.8} />
-        </button>
+          background: isSearchOpen ? 'rgba(22, 54, 36, 0.06)' : 'transparent',
+          borderRadius: '100px',
+          padding: isSearchOpen ? '0.4rem 0.8rem' : '4px',
+          transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+          width: isSearchOpen ? '180px' : '27px',
+          overflow: 'hidden'
+        }}>
+          <button style={{
+            border: 'none',
+            background: 'transparent',
+            cursor: 'pointer',
+            color: '#2a3a2d',
+            display: 'flex',
+            alignItems: 'center',
+            padding: 0,
+            minWidth: '19px'
+          }} 
+          aria-label="Search"
+          onClick={() => {
+            if (!isSearchOpen) {
+              setIsSearchOpen(true);
+              setTimeout(() => searchInputRef.current?.focus(), 100);
+            }
+          }}
+          >
+            <Search size={19} strokeWidth={1.8} />
+          </button>
+          
+          <input 
+            ref={searchInputRef}
+            type="text" 
+            placeholder="Find plants..." 
+            style={{
+              border: 'none',
+              background: 'transparent',
+              outline: 'none',
+              width: isSearchOpen ? '100%' : '0',
+              opacity: isSearchOpen ? 1 : 0,
+              paddingLeft: isSearchOpen ? '0.6rem' : '0',
+              color: darkGreen,
+              fontSize: '0.85rem',
+              fontWeight: '500',
+              transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+            onBlur={(e) => {
+              if (e.target.value === '') {
+                setIsSearchOpen(false);
+              }
+            }}
+          />
+        </div>
 
         <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
           <button style={{

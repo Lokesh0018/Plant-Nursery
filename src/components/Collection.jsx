@@ -100,7 +100,7 @@ export default function Collection() {
   }, []);
 
   return (
-    <section ref={sectionRef} style={{
+    <section id="collection" ref={sectionRef} style={{
       padding: '10vh 5vw',
       backgroundColor: 'var(--color-warm-cream)',
       position: 'relative',
