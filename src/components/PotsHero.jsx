@@ -48,14 +48,14 @@ export default function PotsHero() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'top top',
+          start: 'top -10%',
           end: 'bottom top',
           scrub: 1,
         }
       });
 
       tl.to([potRef.current, contentRef.current], {
-        y: '-20vh',
+        y: '-10vh',
         opacity: 0,
         ease: 'none'
       }, 0);

@@ -100,18 +100,18 @@
     padding-left: 0;
     align-items: center;
     text-align: center;
-    margin-top: -5rem;
-    padding-bottom: 3rem;
+    margin-top: -3rem;
+    padding-bottom: 4rem;
   }
 
   .pots-hero-image-container {
     flex: none;
-    height: 50vh;
+    height: 40vh;
     width: 100%;
   }
 
   .pots-hero-image {
-    height: 60vh;
+    height: 40vh;
     margin-top: 0;
   }
 

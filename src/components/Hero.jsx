@@ -18,6 +18,10 @@ export default function Hero() {
     let ctx = gsap.context(() => {
       // Entrance animation
       gsap.from(contentRef.current.children, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
         y: 30,
         opacity: 0,
         duration: 1,
@@ -27,6 +31,10 @@ export default function Hero() {
       });
 
       gsap.from(plantRef.current, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
         y: 50,
         opacity: 0,
         duration: 1.5,
@@ -37,14 +45,14 @@ export default function Hero() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'top top',
+          start: 'top -10%',
           end: 'bottom top',
           scrub: 1,
         }
       });
 
       tl.to([plantRef.current, contentRef.current], {
-        y: '-20vh',
+        y: '-10vh',
         opacity: 0,
         ease: 'none'
       }, 0);
