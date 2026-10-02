@@ -75,6 +75,7 @@ function ProductCard({ product }) {
 
   return (
     <div 
+      id={`product-${product.id}`}
       className="product-card"
       style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', position: 'relative' }}
       onMouseEnter={() => setIsHovered(true)}

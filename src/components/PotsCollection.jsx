@@ -73,6 +73,7 @@ function PotCard({ pot }) {
 
   return (
     <div 
+      id={`product-${pot.id}`}
       className="pot-card"
       style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', position: 'relative' }}
       onMouseEnter={() => setIsHovered(true)}

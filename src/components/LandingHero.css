@@ -444,6 +444,11 @@
 .hero-card-btn {
   width: 46px;
   height: 22px;
+  min-width: 46px;
+  min-height: 22px;
+  max-width: 46px;
+  flex-shrink: 0;
+  align-self: flex-start;
   border-radius: 11px;
   color: #ffffff;
   display: flex;
@@ -731,6 +736,9 @@
   .hero-card-btn {
     width: 36px;
     height: 20px;
+    min-width: 36px;
+    min-height: 20px;
+    max-width: 36px;
   }
 
   .hero-features-row {
@@ -791,23 +799,54 @@
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 768px) {
+  .hero-section {
+    padding-bottom: 0;
+  }
+
   .hero-title {
-    font-size: 38px;
+    font-size: 42px;
   }
   
   .hero-floating-cards-wrapper {
     grid-template-columns: 1fr;
-    max-width: 260px;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .hero-card-img-2 {
+    bottom: -24px;
+  }
+
+  .hero-floating-card {
+    height: 160px;
   }
   
   .hero-features-row {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem; /* for scrollbar */
+    -webkit-overflow-scrolling: touch;
   }
   
   .hero-feature-item {
+    flex: 0 0 auto;
     flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    width: 23%;
+  }
+
+  .hero-feature-text-container {
+    font-size: 0.55rem;
+    text-align: center;
+  }
+  
+  .hero-badge-svg {
+    display: none;
   }
 }

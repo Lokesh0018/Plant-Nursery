@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Search, ArrowRight, Menu, X } from 'lucide-react';
 import './Navbar.css';
 import CartDrawer from './CartDrawer';
+import { products } from '../data/products';
+import { pots } from '../data/pots';
 
 export default function Navbar() {
   const darkGreen = '#163624';
@@ -239,6 +241,28 @@ export default function Navbar() {
                 fontSize: '0.85rem',
                 fontWeight: '500',
                 transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && e.target.value.trim() !== '') {
+                  const query = e.target.value.toLowerCase().trim();
+                  const allItems = [...products, ...pots];
+                  
+                  // Try to find exact match first, then partial match
+                  const match = allItems.find(item => item.name.toLowerCase() === query) 
+                    || allItems.find(item => item.name.toLowerCase().includes(query));
+                    
+                  if (match) {
+                    const el = document.getElementById(`product-${match.id}`);
+                    if (el) {
+                      // Adjust scroll position slightly higher for navbar
+                      const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                      setIsSearchOpen(false);
+                      e.target.blur();
+                      e.target.value = '';
+                    }
+                  }
+                }
               }}
               onBlur={(e) => {
                 if (e.target.value === '') {
