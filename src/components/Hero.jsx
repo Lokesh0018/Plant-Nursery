@@ -1,9 +1,8 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import PurchasePanel from './PurchasePanel';
 import { products } from '../data/products';
-import { Star } from 'lucide-react';
+import { Star, ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,22 +39,17 @@ export default function Hero() {
           start: 'top top',
           end: 'bottom top',
           scrub: 1,
-          pin: true,
         }
       });
 
       tl.to(plantRef.current, {
-        y: '-40vh',
-        scale: 1.1,
+        y: '-10vh',
+        scale: 0.9,
         ease: 'none'
       }, 0)
       .to(contentRef.current, {
-        y: '-20vh',
+        y: '-30vh',
         opacity: 0,
-        ease: 'none'
-      }, 0)
-      .to('.app-container', {
-        backgroundColor: 'var(--color-warm-cream)',
         ease: 'none'
       }, 0);
 
@@ -74,13 +68,25 @@ export default function Hero() {
       position: 'relative',
       overflow: 'hidden'
     }}>
+      {/* Floor color element */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '20vh',
+        backgroundColor: 'var(--color-warm-cream)',
+        zIndex: 0
+      }} />
+
       <div style={{
         flex: 1,
         height: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'relative'
+        position: 'relative',
+        zIndex: 1
       }}>
         <img 
           ref={plantRef}
@@ -104,28 +110,72 @@ export default function Hero() {
         paddingLeft: '4rem',
         zIndex: 5
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', color: 'var(--color-text-muted)' }}>
-          <div style={{ display: 'flex', color: 'var(--color-accent-terracotta)' }}>
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} size={16} fill="currentColor" strokeWidth={0} />
-            ))}
-          </div>
-          <span style={{ fontSize: '0.9rem' }}>{product.rating} ({product.reviews} reviews)</span>
-        </div>
 
-        <h1 style={{ fontSize: '4.5rem', lineHeight: '1.1', marginBottom: '0.5rem' }}>
+        <h1 style={{ 
+          fontSize: 'clamp(3.5rem, 5vw, 5.5rem)', 
+          lineHeight: '1.05', 
+          marginBottom: '0.75rem',
+          fontWeight: '400',
+          letterSpacing: '-0.02em',
+          color: 'var(--color-text-dark)'
+        }}>
           {product.name}
         </h1>
         
-        <h2 style={{ fontSize: '1.5rem', fontStyle: 'italic', color: 'var(--color-text-muted)', marginBottom: '2rem' }}>
+        <h2 style={{ 
+          fontSize: '1.75rem', 
+          fontStyle: 'italic', 
+          color: 'var(--color-text-muted)', 
+          marginBottom: '2.5rem',
+          fontWeight: '300'
+        }}>
           {product.scientificName}
         </h2>
 
-        <p style={{ fontSize: '1.1rem', lineHeight: '1.6', maxWidth: '450px', marginBottom: '3rem', color: 'var(--color-text-secondary)' }}>
+        <p style={{ 
+          fontSize: '1.15rem', 
+          lineHeight: '1.7', 
+          maxWidth: '480px', 
+          marginBottom: '3.5rem', 
+          color: 'var(--color-text-secondary)',
+          fontWeight: '300'
+        }}>
           {product.description}
         </p>
 
-        <PurchasePanel product={product} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+          <button style={{
+            background: 'var(--color-text-dark)',
+            color: 'var(--color-off-white)',
+            padding: '1.2rem 2.5rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+            fontSize: '0.9rem',
+            borderRadius: '100px',
+            fontWeight: '500',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 15px 35px rgba(0,0,0,0.15)';
+            e.currentTarget.style.background = 'var(--color-accent-terracotta)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+            e.currentTarget.style.background = 'var(--color-text-dark)';
+          }}
+          >
+            Discover Collection
+            <ArrowRight size={18} />
+          </button>
+        </div>
       </div>
     </section>
   );

@@ -1,13 +1,13 @@
 export const products = [
   {
     id: 'p1',
-    name: 'Ruby Rubber Tree',
-    scientificName: "Ficus elastica 'Ruby'",
+    name: 'Featured Nursery Plant',
+    scientificName: "Premium Botanical Collection",
     price: 1499,
     rating: 4.9,
     reviews: 124,
-    description: 'Bring natural elegance into your home with this beautiful variegated rubber plant. Features stunning pink and ruby tones on broad, glossy leaves.',
-    image: 'https://placehold.co/600x800/A4C5A5/17271D.png?text=Ruby+Rubber+Tree'
+    description: 'Bring natural elegance into your home with this beautiful premium plant. Carefully nurtured in our greenhouse for your living space.',
+    image: '/Main Hero Plant.png'
   },
   {
     id: 'p2',
@@ -17,7 +17,7 @@ export const products = [
     rating: 4.8,
     reviews: 89,
     description: 'Famous for its natural leaf holes, this tropical beauty brings a dramatic jungle vibe to any bright indoor space.',
-    image: 'https://placehold.co/600x800/A4C5A5/17271D.png?text=Monstera'
+    image: '/plant1-Photoroom.png'
   },
   {
     id: 'p3',
@@ -27,7 +27,7 @@ export const products = [
     rating: 4.7,
     reviews: 210,
     description: 'An architectural statement piece with massive, violin-shaped leaves. Perfect for brightly lit corners.',
-    image: 'https://placehold.co/600x800/A4C5A5/17271D.png?text=Fiddle+Leaf'
+    image: '/plant2-Photoroom.png'
   },
   {
     id: 'p4',
@@ -37,7 +37,7 @@ export const products = [
     rating: 4.9,
     reviews: 315,
     description: 'Nearly indestructible and an excellent air purifier. The perfect structural plant for beginners and experts alike.',
-    image: 'https://placehold.co/600x800/A4C5A5/17271D.png?text=Snake+Plant'
+    image: '/plant3-Photoroom.png'
   },
   {
     id: 'p5',
@@ -47,7 +47,7 @@ export const products = [
     rating: 4.6,
     reviews: 78,
     description: 'A graceful shade-loving plant that produces elegant white spathes and excels at filtering indoor air.',
-    image: 'https://placehold.co/600x800/A4C5A5/17271D.png?text=Peace+Lily'
+    image: '/plant4-Photoroom.png'
   },
   {
     id: 'p6',
@@ -57,6 +57,6 @@ export const products = [
     rating: 4.8,
     reviews: 142,
     description: 'Transform your space into a tropical oasis with these majestic, paddle-shaped leaves that can reach up to the ceiling.',
-    image: 'https://placehold.co/600x800/A4C5A5/17271D.png?text=Bird+Of+Paradise'
+    image: '/plant5-Photoroom.png'
   }
 ];

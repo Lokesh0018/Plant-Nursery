@@ -36,7 +36,7 @@ export default function StorySection() {
       <div style={{ flex: 1, height: '60vh', overflow: 'hidden', borderRadius: '4px' }}>
         <img 
           ref={imageRef}
-          src="https://placehold.co/1200x1600/C5D9C1/17271D.png?text=Botanical+Story" 
+          src="/nursery.jpeg" 
           alt="Botanical setup" 
           style={{ width: '100%', height: '120%', objectFit: 'cover', transform: 'translateY(-10%)' }}
         />

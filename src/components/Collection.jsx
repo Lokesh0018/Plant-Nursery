@@ -102,16 +102,37 @@ export default function Collection() {
   return (
     <section ref={sectionRef} style={{
       padding: '10vh 5vw',
-      backgroundColor: 'var(--color-warm-cream)'
+      backgroundColor: 'var(--color-warm-cream)',
+      position: 'relative',
+      overflow: 'hidden'
     }}>
+      {/* Huge background text */}
+      <div style={{
+        position: 'absolute',
+        top: '5vh',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        fontSize: '25vw',
+        fontWeight: 'bold',
+        color: 'rgba(255, 255, 255, 0.4)',
+        zIndex: 0,
+        whiteSpace: 'nowrap',
+        pointerEvents: 'none',
+        lineHeight: 1
+      }}>
+        Planter
+      </div>
+
       <h2 ref={headingRef} style={{
-        fontSize: '3.5rem',
+        fontSize: '2.5rem',
         textAlign: 'center',
         marginBottom: '4rem',
         maxWidth: '600px',
-        margin: '0 auto 4rem auto'
+        margin: '0 auto 4rem auto',
+        position: 'relative',
+        zIndex: 1
       }}>
-        Find the perfect home for your plants
+        Select a planter design
       </h2>
 
       <div ref={gridRef} style={{
