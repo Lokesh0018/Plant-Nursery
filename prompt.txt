@@ -1,0 +1,630 @@
+# PROJECT: PREMIUM PLANT NURSERY WEBSITE WITH SCROLL-DRIVEN PNG PARALLAX
+
+Act as a senior creative frontend developer, UI/UX designer, and GSAP animation specialist. Build a complete, production-quality, premium plant nursery e-commerce website inspired by the provided Pinterest reference video and screenshot.
+
+The website must have the same minimalist editorial design language, oversized isolated plant PNG, elegant typography, floating product purchase panel, and scroll-driven transitions.
+
+IMPORTANT: The primary visual effect must use transparent PNG images and scroll-driven parallax. Do not replace the plant with a rotating 3D model. The plant should look like a real product photograph that moves naturally as the user scrolls.
+
+Do not just create a static mockup. Implement the complete responsive website with working navigation, animations, product interactions, and smooth transitions.
+
+---
+
+# 1. TECHNOLOGY STACK
+
+Use the following technologies:
+
+* React with Vite
+* JavaScript or TypeScript
+* GSAP for animation
+* GSAP ScrollTrigger for scroll-driven animation
+* Lenis for smooth scrolling
+* CSS Modules or well-organized global CSS
+* Lucide React for icons
+
+Use React components to organize the application.
+
+Do not use unnecessary animation libraries alongside GSAP. Use CSS transitions for simple hover effects.
+
+Use requestAnimationFrame-compatible animation patterns and properly clean up GSAP timelines and ScrollTriggers when React components unmount.
+
+---
+
+# 2. DESIGN DIRECTION
+
+Create a premium, minimalistic, botanical e-commerce website with the visual character of a high-end editorial plant store.
+
+Reference design characteristics:
+
+* Soft sage-green background
+* Warm cream-colored sections
+* Dark forest-green or nearly black typography
+* Large editorial serif headings
+* Small, clean sans-serif navigation
+* Isolated transparent PNG plants
+* Generous whitespace
+* Minimal borders and subtle shadows
+* Clean product information layout
+* Floating purchase card
+* Smooth, natural scrolling transitions
+
+The design must feel calm, sophisticated, organic, and modern.
+
+Avoid:
+
+* Excessive gradients
+* Bright neon colors
+* Heavy glassmorphism
+* Too many rounded cards
+* Unnecessary decorative icons
+* Excessive animations
+* Generic e-commerce templates
+* Large amounts of unnecessary text
+
+The product and plant imagery must remain the main visual focus.
+
+# 3. COLOR PALETTE
+
+Use a consistent botanical palette.
+
+Primary background:
+
+* Sage green: #A4C5A5
+* Light sage: #C5D9C1
+* Warm cream: #F3EFE4
+* Off-white: #FAF9F5
+
+Text:
+
+* Dark forest green: #17271D
+* Muted green: #526454
+* Secondary text: #777C71
+
+Accent:
+
+* Terracotta: #C87E58
+* Soft peach: #E7B99B
+
+Use sage green for the main product hero and warm cream for the collection sections.
+
+Create smooth transitions between section backgrounds.
+
+# 4. WEBSITE STRUCTURE
+
+Build the following sections:
+
+1. Minimal navigation
+2. Product hero with transparent PNG parallax
+3. Product purchase panel
+4. Product details and care information
+5. Animated transition into the planter collection
+6. Plant collection grid
+7. Botanical storytelling section
+8. Plant care section
+9. Newsletter subscription
+10. Minimal footer
+
+The first viewport should closely resemble the supplied reference.
+
+# 5. NAVIGATION BAR
+
+Create a minimalist navigation bar positioned at the top of the website.
+
+Layout:
+
+* Brand name on the left: "VERDANT" or "PLANTE"
+* Navigation links centered:
+
+  * SHOP NOW
+  * COLLECTIONS
+  * WORKSHOP
+* ACCOUNT and shopping bag icons on the right
+
+Design:
+
+* Transparent background matching the hero
+* Small uppercase navigation labels
+* Elegant brand typography
+* Minimal spacing
+* Thin separators only where necessary
+
+Interactions:
+
+* Smooth scrolling to the corresponding sections
+* Hover underline animation
+* Shopping bag opens a cart drawer
+* Account opens a simple account panel
+* Mobile navigation becomes a compact menu
+
+Keep the navbar visually quiet so that the plant remains the main attraction.
+
+# 6. HERO SECTION — MOST IMPORTANT
+
+Recreate the reference's product hero layout.
+
+The hero must occupy approximately 100vh on desktop.
+
+Use a two-column composition.
+
+LEFT SIDE:
+
+* Large transparent PNG image of a potted plant
+* Plant positioned slightly left of center
+* Plant should occupy approximately 45–55% of the viewport height
+* Plant should be large enough to become the dominant visual element
+* Preserve the original image proportions
+* Use object-fit: contain
+* No visible image background
+* Add a subtle floor shadow beneath the pot
+
+RIGHT SIDE:
+
+* Product rating and review count near the top
+* Large serif product title
+* Botanical name in italic serif typography
+* Short product description
+* Product price
+* Floating purchase panel toward the lower-right area
+
+Example product:
+Name: Ruby Rubber Tree
+Scientific name: Ficus elastica 'Ruby'
+Price: ₹1,499
+Rating: 4.9
+Description: Bring natural elegance into your home with this beautiful variegated rubber plant.
+
+Purchase panel:
+
+* One-time purchase
+* Subscribe and save
+* Quantity selector
+* Add to cart button
+* Delivery information
+* Simple guarantee text
+
+Use realistic sample product content and INR pricing.
+
+Make the purchase panel a clean, rectangular, off-white card with subtle shadow and minimal borders.
+
+The plant image must not overlap the product title or purchase controls.
+
+# 7. PNG PLANT PARALLAX ANIMATION
+
+This is the most important animation of the entire website.
+
+Use a transparent PNG of a realistic potted plant. The PNG must have a clean transparent background and high resolution.
+
+Place the PNG inside a dedicated plant container.
+
+Implement the animation with GSAP and ScrollTrigger.
+
+INITIAL STATE:
+
+* Plant is positioned on the left side of the hero.
+* Plant is fully visible.
+* Plant has a natural scale of 1.
+* Product details are visible on the right.
+* The hero occupies the full viewport.
+
+SCROLL ANIMATION:
+
+* Pin the hero section during the main transition.
+* As the user scrolls, move the plant upward.
+* Use a carefully tuned vertical translation.
+* Slightly scale the plant during the transition.
+* Keep the plant's movement smooth and continuous.
+* The plant should appear to move independently from the text and background.
+* Do not rotate the plant aggressively.
+* Avoid sudden jumps or abrupt changes.
+* Use scrub-based animation so the movement is directly controlled by scroll position.
+
+During the scroll:
+
+1. The plant gradually moves upward.
+2. The plant becomes partially cropped at the top of the viewport.
+3. Product information gradually fades or moves away.
+4. The background transitions from sage green to warm cream.
+5. The next section starts appearing beneath the hero.
+6. The next section's heading and product cards reveal progressively.
+
+The entire animation must reverse naturally when scrolling upward.
+
+Do not make the plant disappear instantly. It must move out of view naturally.
+
+Use GSAP timelines with ScrollTrigger and scrub: 1 or a similarly smooth value.
+
+Use appropriate start and end positions. Tune the animation for real browser scrolling, not just a demo.
+
+IMPORTANT:
+
+* The PNG plant must remain sharp.
+* Do not distort the plant's aspect ratio.
+* Do not use a CSS background image for the plant.
+* Use an actual img element with object-fit: contain.
+* Do not animate the plant using an infinite floating loop that conflicts with scroll control.
+* Avoid layout shifts during the pinned animation.
+
+# 8. PRODUCT INFORMATION ANIMATION
+
+Animate the product details independently from the plant.
+
+On initial page load:
+
+* Brand and navigation fade in.
+* Product title moves upward slightly and fades in.
+* Botanical name appears shortly after the title.
+* Description appears with a small delay.
+* Price appears with a subtle reveal.
+* Purchase panel slides upward into view.
+
+Keep the entrance animation restrained and premium.
+
+During scroll:
+
+* Fade and move the product text away smoothly.
+* Keep the plant as the main visual element.
+* Avoid text overlapping with the plant.
+
+Use staggered animations for the individual text elements.
+
+# 9. PRODUCT PURCHASE PANEL
+
+Create a visually refined purchase panel positioned in the lower-right portion of the hero.
+
+Desktop layout:
+
+* Rectangular off-white background
+* One-time purchase option
+* Subscription option
+* Quantity selector with minus and plus buttons
+* Add to cart button
+* Price display
+* Shipping or delivery information
+
+Interactions:
+
+* Quantity increases and decreases correctly.
+* Product price updates according to quantity.
+* Add to cart updates the cart count.
+* Clicking the cart icon opens a cart drawer.
+* Cart drawer displays selected products, quantities, and subtotal.
+* Allow removing products from the cart.
+* Add a simple success notification when an item is added.
+
+Make the panel responsive. On smaller screens, place it below the plant and product details instead of forcing it into a narrow column.
+
+# 10. SECTION TRANSITION — PLANTER COLLECTION
+
+Create a visually seamless transition from the product hero into the next section.
+
+The next section should have a warm cream background.
+
+Section heading:
+"Find the perfect home for your plants"
+
+Use a large elegant serif heading.
+
+As the user scrolls:
+
+* Reveal the heading with a smooth upward movement.
+* Bring product cards into view with staggered timing.
+* Use subtle opacity and vertical movement.
+* Keep the transition connected to the hero animation.
+* Avoid abrupt section changes.
+
+Use ScrollTrigger to coordinate the transition between the hero and the collection section.
+
+The plant hero should feel like it is naturally giving way to the collection below.
+
+# 11. PLANT COLLECTION GRID
+
+Create a premium collection section with a clean product grid.
+
+Include at least six products:
+
+1. Ruby Rubber Tree
+2. Monstera Deliciosa
+3. Fiddle Leaf Fig
+4. Snake Plant
+5. Peace Lily
+6. Bird of Paradise
+
+Each product card should contain:
+
+* Plant image
+* Plant name
+* Short botanical name
+* Price
+* Optional rating
+* Add-to-cart button
+
+Design:
+
+* Minimal product cards
+* Large plant images
+* Cream background
+* Subtle image hover scale
+* Clean serif product titles
+* Small sans-serif labels
+* Consistent spacing
+
+On hover:
+
+* Plant image scales very slightly.
+* Product title changes to a darker green.
+* Add-to-cart control becomes more prominent.
+* Avoid exaggerated 3D rotations.
+
+Use a responsive grid:
+
+* Four columns on large desktop
+* Three columns on standard desktop
+* Two columns on tablets
+* One or two columns on mobile, depending on screen width
+
+# 12. BOTANICAL STORYTELLING SECTION
+
+Create an editorial storytelling section titled:
+
+"Bring nature closer to home."
+
+Use a large plant photograph on one side and text on the other.
+
+Add a subtle parallax effect to the image as the user scrolls.
+
+Include short content about:
+
+* Carefully selected plants
+* Sustainable growing practices
+* Plant quality
+* Helping customers care for their plants
+
+Use large whitespace and restrained typography.
+
+Add a small text link:
+"OUR STORY"
+
+# 13. PLANT CARE SECTION
+
+Create a simple, visually appealing plant care section.
+
+Heading:
+"Growing happiness, one leaf at a time."
+
+Include three care categories:
+
+* Light
+* Water
+* Soil
+
+Each category should have a minimalist icon, short description, and a small image or illustration.
+
+Use subtle staggered reveal animations when the section enters the viewport.
+
+Keep the section informative rather than decorative.
+
+# 14. NEWSLETTER SECTION
+
+Create a simple newsletter signup area.
+
+Heading:
+"Let's grow together."
+
+Include:
+
+* Email input
+* Subscribe button
+* Short supporting text
+
+Implement basic email validation.
+
+Display a confirmation message when a valid email is submitted.
+
+Use a soft sage background with dark text.
+
+# 15. FOOTER
+
+Create a minimal editorial-style footer.
+
+Include:
+
+* Brand logo or text
+* Shop
+* Collections
+* About
+* Plant care
+* Contact
+* Social media links
+* Copyright
+
+Use a warm cream background and subtle top border.
+
+Add a small botanical illustration or isolated leaf PNG as a decorative element.
+
+Do not overcrowd the footer.
+
+# 16. IMAGE ASSETS
+
+Use transparent PNG assets for the main plant and other isolated product plants.
+
+The primary plant PNG should be used in the hero.
+
+If an appropriate asset already exists in the project, reuse it instead of replacing it.
+
+If assets are missing:
+
+* Create an assets folder.
+* Use high-quality plant images with consistent visual style.
+* Prefer transparent images for isolated product imagery.
+* Do not use low-resolution or visibly pixelated images.
+* Avoid stretching or cropping plant images incorrectly.
+
+Use descriptive filenames, such as:
+
+* rubber-tree.png
+* monstera.png
+* fiddle-leaf-fig.png
+* snake-plant.png
+* peace-lily.png
+* bird-of-paradise.png
+
+For any missing image, use a graceful placeholder rather than breaking the layout.
+
+# 17. RESPONSIVE DESIGN
+
+The website must work on desktop, tablet, and mobile.
+
+DESKTOP:
+
+* Reproduce the reference's two-column product hero.
+* Large plant on the left.
+* Product information on the right.
+* Floating purchase panel.
+
+TABLET:
+
+* Reduce plant size.
+* Maintain clear spacing between image and content.
+* Adapt the purchase panel width.
+* Ensure the pinned transition does not cause overflow.
+
+MOBILE:
+
+* Use a vertically stacked product layout.
+* Navigation collapses into a mobile menu.
+* Plant image appears prominently above the purchase panel.
+* Product details remain readable.
+* Disable or simplify complex pinning if it harms usability.
+* Keep scroll animations smooth and natural.
+* Prevent horizontal scrolling.
+
+Use responsive typography with clamp() and responsive spacing.
+
+# 18. PERFORMANCE AND ACCESSIBILITY
+
+Performance:
+
+* Optimize and compress images.
+* Lazy-load images below the fold.
+* Preload the hero plant PNG.
+* Avoid unnecessarily large animation timelines.
+* Prevent layout shifts.
+* Use will-change only on elements that are actively animated.
+* Clean up ScrollTriggers when components unmount.
+* Avoid unnecessary React re-renders during scrolling.
+
+Accessibility:
+
+* Use semantic HTML.
+* Add meaningful alt text to plant images.
+* Ensure keyboard-accessible buttons and navigation.
+* Provide visible focus states.
+* Respect prefers-reduced-motion.
+* Ensure adequate text contrast.
+* Make all purchase controls usable without a mouse.
+
+# 19. GSAP IMPLEMENTATION REQUIREMENTS
+
+Use GSAP context or an equivalent cleanup pattern inside React effects.
+
+Register ScrollTrigger properly.
+
+Use a single coordinated timeline for the hero transition wherever practical.
+
+The animation should:
+
+* Be scroll-scrubbed
+* Pin the hero on desktop
+* Move the PNG plant vertically
+* Fade the product information
+* Transition the background
+* Reveal the next section
+* Reverse correctly when scrolling upward
+
+Avoid creating multiple conflicting ScrollTriggers for the same element.
+
+Use invalidateOnRefresh where necessary.
+
+Recalculate animation measurements after images load if needed.
+
+Do not use fixed pixel offsets that break on different viewport sizes. Prefer responsive calculations and functional GSAP values.
+
+# 20. PROJECT STRUCTURE
+
+Use a clean, maintainable component structure, for example:
+
+src/
+components/
+Navbar.jsx
+Hero.jsx
+PlantImage.jsx
+ProductInfo.jsx
+PurchasePanel.jsx
+CartDrawer.jsx
+Collection.jsx
+ProductCard.jsx
+StorySection.jsx
+PlantCare.jsx
+Newsletter.jsx
+Footer.jsx
+data/
+products.js
+hooks/
+useSmoothScroll.js
+styles/
+global.css
+animations.css
+App.jsx
+main.jsx
+
+You may adjust this structure if needed, but keep the code modular and understandable.
+
+# 21. FINAL QUALITY REQUIREMENTS
+
+The final website must:
+
+* Look like a premium plant nursery brand.
+* Closely follow the supplied visual reference.
+* Use a large transparent PNG plant as the hero centerpiece.
+* Reproduce the upward plant parallax transition.
+* Use scroll-driven section transitions.
+* Have smooth, natural animations.
+* Include a functional shopping interface.
+* Be responsive and accessible.
+* Have no broken images, buttons, or navigation links.
+* Avoid unnecessary visual clutter.
+* Feel polished and cohesive.
+
+Do not stop after creating the hero section. Implement the entire website.
+
+# 22. DEVELOPMENT WORKFLOW
+
+Before coding:
+
+1. Inspect the existing project and identify its framework and installed dependencies.
+2. Reuse existing components and assets wherever appropriate.
+3. Plan the hero animation and section transitions.
+4. Avoid overwriting unrelated project files.
+
+During development:
+
+1. Build the layout first.
+2. Implement the hero PNG positioning.
+3. Add the GSAP parallax timeline.
+4. Implement the collection and remaining sections.
+5. Add cart interactions and responsive behavior.
+6. Refine typography, spacing, and animation timing.
+
+After implementation:
+
+1. Run the development server.
+2. Check for compilation errors.
+3. Test the scroll animation in both directions.
+4. Test desktop, tablet, and mobile layouts.
+5. Check all navigation and cart interactions.
+6. Fix any layout issues and animation conflicts.
+7. Verify that the website remains usable with reduced motion enabled.
+
+Do not merely explain how to build the website. Build it directly in the existing project and verify the result.
+
+The final experience should feel like a carefully art-directed, premium botanical e-commerce website with the same distinctive PNG parallax interaction as the reference.
