@@ -8,9 +8,16 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const navRef = React.useRef(null);
   const searchInputRef = React.useRef(null);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
+
+  useEffect(() => {
+    const handleCartUpdate = () => setCartCount(c => c + 1);
+    window.addEventListener('cart-updated', handleCartUpdate);
+    return () => window.removeEventListener('cart-updated', handleCartUpdate);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,6 +82,7 @@ export default function Navbar() {
     }}>
       {/* Brand Logo */}
       <div style={{
+        flex: 1,
         display: 'flex',
         alignItems: 'center',
         gap: '0.6rem',
@@ -173,7 +181,7 @@ export default function Navbar() {
       </ul>
       
       {/* Right Controls */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+      <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '1.25rem' }}>
         {/* Animated Search Bar */}
         <div style={{
           display: 'flex',
@@ -231,7 +239,7 @@ export default function Navbar() {
         </div>
 
         <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-          <button style={{
+          <button className="cart-icon-target" style={{
             border: 'none',
             background: 'transparent',
             cursor: 'pointer',
@@ -242,23 +250,25 @@ export default function Navbar() {
           }} aria-label="Cart">
             <ShoppingBag size={19} strokeWidth={1.8} />
           </button>
-          <span style={{
-            position: 'absolute',
-            top: '-2px',
-            right: '-4px',
-            backgroundColor: darkGreen,
-            color: '#ffffff',
-            fontSize: '0.62rem',
-            width: '15px',
-            height: '15px',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: '600'
-          }}>
-            2
-          </span>
+          {cartCount > 0 && (
+            <span className="cart-badge" style={{
+              position: 'absolute',
+              top: '-2px',
+              right: '-4px',
+              backgroundColor: darkGreen,
+              color: '#ffffff',
+              fontSize: '0.62rem',
+              width: '15px',
+              height: '15px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: '600'
+            }}>
+              {cartCount}
+            </span>
+          )}
         </div>
 
         <button style={{

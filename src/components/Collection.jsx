@@ -10,8 +10,71 @@ function ProductCard({ product }) {
   const [isHovered, React_useState] = React.useState(false);
   const setIsHovered = React_useState;
 
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    
+    const card = e.currentTarget.closest('.product-card');
+    const img = card.querySelector('img');
+    const cartIcon = document.querySelector('.cart-icon-target');
+    const cartBadge = document.querySelector('.cart-badge');
+
+    if (!img || !cartIcon) return;
+
+    const clone = img.cloneNode(true);
+    const imgRect = img.getBoundingClientRect();
+    const cartRect = cartIcon.getBoundingClientRect();
+
+    clone.style.position = 'fixed';
+    clone.style.top = `${imgRect.top}px`;
+    clone.style.left = `${imgRect.left}px`;
+    clone.style.width = `${imgRect.width}px`;
+    clone.style.height = `${imgRect.height}px`;
+    clone.style.zIndex = 9999;
+    clone.style.pointerEvents = 'none';
+    clone.style.transform = 'none';
+    clone.style.transition = 'none';
+    clone.style.filter = 'drop-shadow(0 15px 15px rgba(0,0,0,0.2))';
+    
+    document.body.appendChild(clone);
+
+    // Horizontal movement
+    gsap.to(clone, {
+      left: cartRect.left + cartRect.width / 2 - 15,
+      width: 30,
+      height: 30,
+      duration: 0.9,
+      ease: "power1.inOut"
+    });
+
+    // Vertical movement with a deep U-dip
+    gsap.to(clone, {
+      top: cartRect.top + cartRect.height / 2 - 15,
+      opacity: 0.3,
+      duration: 0.9,
+      ease: "back.in(3)", // Causes it to move downwards first before shooting up
+      onComplete: () => {
+        clone.remove();
+        
+        // Tell the Navbar to increment the cart
+        window.dispatchEvent(new CustomEvent('cart-updated'));
+
+        gsap.fromTo(cartIcon, { scale: 1 }, { scale: 1.3, duration: 0.15, yoyo: true, repeat: 1 });
+        
+        // Wait a tiny bit for React to render the badge if it's the first item
+        setTimeout(() => {
+          const badge = document.querySelector('.cart-badge');
+          if (badge) {
+            gsap.fromTo(badge, { scale: 1 }, { scale: 1.5, duration: 0.15, yoyo: true, repeat: 1, backgroundColor: '#3a7d44' });
+            gsap.to(badge, { backgroundColor: '#163624', delay: 0.3 });
+          }
+        }, 50);
+      }
+    });
+  };
+
   return (
     <div 
+      className="product-card"
       style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', position: 'relative' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -77,6 +140,7 @@ function ProductCard({ product }) {
         }}
         onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1.1)'}
         onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
+        onClick={handleAddToCart}
         >
           <Plus size={20} strokeWidth={2.5} />
         </button>
@@ -143,31 +207,66 @@ function ProductCard({ product }) {
 export default function Collection() {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
+  const bgTextRef = useRef(null);
   const gridRef = useRef(null);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out'
-      });
+      
+      // Animate background text "Plant" - scrubbed parallax effect
+      gsap.fromTo(bgTextRef.current, 
+        { y: 250, opacity: 0, scale: 0.85 },
+        {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 95%',
+            end: 'center center',
+            scrub: 1.5
+          },
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          ease: 'none'
+        }
+      );
 
-      gsap.from(gridRef.current.children, {
-        scrollTrigger: {
-          trigger: gridRef.current,
-          start: 'top 75%',
-        },
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: 'power3.out'
+      // Animate heading "Select"
+      gsap.fromTo(headingRef.current, 
+        { y: 50, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            end: 'bottom top',
+            toggleActions: 'play reverse play reverse'
+          },
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out'
+        }
+      );
+
+      // Animate plants grid children individually
+      const cards = gsap.utils.toArray(gridRef.current.children);
+      cards.forEach((card, index) => {
+        gsap.fromTo(card, 
+          { y: 120, opacity: 0, scale: 0.95 },
+          {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 90%', // Triggers right as the card enters the bottom 10% of the screen
+              end: 'bottom top',
+              toggleActions: 'play reverse play reverse'
+            },
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1.2,
+            ease: 'back.out(1.2)',
+            delay: (index % 4) * 0.1 // Stagger effect for cards on the same row
+          }
+        );
       });
     }, sectionRef);
 
@@ -182,7 +281,7 @@ export default function Collection() {
       overflow: 'hidden'
     }}>
       {/* Huge background text */}
-      <div style={{
+      <div ref={bgTextRef} style={{
         position: 'absolute',
         top: '5vh',
         left: '50%',
@@ -198,17 +297,44 @@ export default function Collection() {
         Plant
       </div>
 
-      <h2 ref={headingRef} style={{
-        fontSize: '2.5rem',
+      <div ref={headingRef} style={{
         textAlign: 'center',
         marginBottom: '4rem',
-        maxWidth: '600px',
-        margin: '0 auto 4rem auto',
         position: 'relative',
-        zIndex: 1
+        zIndex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
       }}>
-        Select
-      </h2>
+        <span style={{
+          display: 'block',
+          fontSize: '0.75rem',
+          textTransform: 'uppercase',
+          letterSpacing: '0.2em',
+          color: '#4a5b4c',
+          fontWeight: '600',
+          marginBottom: '1rem'
+        }}>
+          Our Curated
+        </span>
+        <h2 style={{
+          fontSize: '3.5rem',
+          fontFamily: 'var(--font-serif)',
+          color: '#163624',
+          fontWeight: '400',
+          lineHeight: '1.1',
+          margin: 0
+        }}>
+          Select
+        </h2>
+        <div style={{
+          width: '40px',
+          height: '2px',
+          backgroundColor: '#163624',
+          marginTop: '1.5rem',
+          opacity: 0.2
+        }} />
+      </div>
 
       <div ref={gridRef} style={{
         display: 'grid',
