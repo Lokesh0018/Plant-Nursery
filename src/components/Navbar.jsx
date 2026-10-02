@@ -23,21 +23,15 @@ export default function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
       
+      const potsElement = document.getElementById('pots');
       const featuredElement = document.getElementById('featured');
-      if (featuredElement) {
-        const rect = featuredElement.getBoundingClientRect();
-        // If the top of the featured section is above the middle of the viewport
-        if (rect.top <= window.innerHeight / 2) {
-          setActiveSection('plants');
-        } else {
-          setActiveSection('home');
-        }
+      
+      if (potsElement && potsElement.getBoundingClientRect().top <= window.innerHeight / 2) {
+        setActiveSection('pots');
+      } else if (featuredElement && featuredElement.getBoundingClientRect().top <= window.innerHeight / 2) {
+        setActiveSection('plants');
       } else {
-        if (window.scrollY > window.innerHeight / 2) {
-           setActiveSection('plants');
-        } else {
-           setActiveSection('home');
-        }
+        setActiveSection('home');
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -169,6 +163,8 @@ export default function Navbar() {
               onClick={() => {
                 if (item === 'Plants') {
                   document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' });
+                } else if (item === 'Pots') {
+                  document.getElementById('pots')?.scrollIntoView({ behavior: 'smooth' });
                 } else if (item === 'Home') {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }

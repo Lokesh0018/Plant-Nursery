@@ -354,7 +354,10 @@ export default function LandingHero() {
           </div>
 
           {/* Right Floating Card 2: Stylish Plant Pots */}
-          <div className="hero-floating-card hero-floating-card-2">
+          <div className="hero-floating-card hero-floating-card-2"
+               onClick={() => document.getElementById('pots')?.scrollIntoView({ behavior: 'smooth' })}
+               style={{ cursor: 'pointer' }}
+          >
             {/* Background Blob/Circle behind the image */}
             <div className="hero-card-blob hero-card-blob-2" />
 
