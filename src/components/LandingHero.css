@@ -195,6 +195,35 @@
   right: -2%;
 }
 
+.hero-hang-light {
+  position: absolute;
+  top: -30px;
+  left: 8%;
+  width: 90px;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: drop-shadow(0 15px 25px rgba(230, 200, 150, 0.4));
+  transform-origin: top center;
+}
+
+.hero-hang-light-2 {
+  position: absolute;
+  top: -40px;
+  right: 12%;
+  left: auto;
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  filter: drop-shadow(0 15px 25px rgba(230, 200, 150, 0.3));
+  transform-origin: top center;
+}
+
 .hero-plant-snake {
   position: absolute;
   top: 45%;
@@ -577,7 +606,9 @@
 }
 
 @media (max-width: 1024px) {
-  .hero-hang {
+  .hero-hang,
+  .hero-hang-light,
+  .hero-hang-light-2 {
     display: none;
   }
 }
