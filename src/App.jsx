@@ -7,6 +7,8 @@ import Navbar from './components/Navbar';
 import LandingHero from './components/LandingHero';
 import Hero from './components/Hero';
 import Collection from './components/Collection';
+import PotsHero from './components/PotsHero';
+import PotsCollection from './components/PotsCollection';
 import StorySection from './components/StorySection';
 import PlantCare from './components/PlantCare';
 import Newsletter from './components/Newsletter';
@@ -23,6 +25,8 @@ function App() {
       <LandingHero />
       <Hero />
       <Collection />
+      <PotsHero />
+      <PotsCollection />
       <StorySection />
       <PlantCare />
       <Newsletter />
