@@ -2,64 +2,139 @@ import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { products } from '../data/products';
-import { Plus } from 'lucide-react';
+import { Plus, Sun, Droplets } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function ProductCard({ product }) {
+  const [isHovered, React_useState] = React.useState(false);
+  const setIsHovered = React_useState;
+
   return (
-    <div className="product-card" style={{ cursor: 'pointer', group: 'true' }}>
+    <div 
+      style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', position: 'relative' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div style={{
-        backgroundColor: '#EBE6D9',
-        borderRadius: '4px',
-        padding: '2rem',
+        backgroundColor: 'transparent',
+        padding: '1rem',
         aspectRatio: '3/4',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: '1.5rem',
-        position: 'relative',
-        overflow: 'hidden'
+        position: 'relative'
       }}>
+        {/* Soft shadow that shrinks when the plant lifts */}
+        <div style={{
+          position: 'absolute',
+          bottom: '10%',
+          width: '50%',
+          height: '20px',
+          background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 70%)',
+          borderRadius: '50%',
+          transform: isHovered ? 'scale(0.85)' : 'scale(1)',
+          opacity: isHovered ? 0.4 : 0.8,
+          transition: 'all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)'
+        }} />
+        
+        {/* Plant Image */}
         <img 
           src={product.image} 
           alt={product.name} 
           style={{
-            width: '80%',
-            height: '80%',
+            width: '100%',
+            height: '100%',
             objectFit: 'contain',
-            transition: 'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)'
+            transform: isHovered ? 'scale(1.08) translateY(-10px)' : 'scale(1) translateY(0)',
+            transition: 'all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)',
+            zIndex: 2,
+            filter: 'drop-shadow(0 15px 15px rgba(0,0,0,0.08))'
           }}
-          onMouseEnter={(e) => e.target.style.transform = 'scale(1.08)'}
-          onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
         />
+
+        {/* Quick Add Button */}
         <button style={{
           position: 'absolute',
-          bottom: '1rem',
-          right: '1rem',
-          width: '40px',
-          height: '40px',
+          bottom: '10%',
+          right: '10%',
+          width: '45px',
+          height: '45px',
           borderRadius: '50%',
-          backgroundColor: 'var(--color-text-dark)',
-          color: 'var(--color-warm-cream)',
+          backgroundColor: '#163624',
+          color: '#ffffff',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          opacity: 0,
-          transform: 'translateY(10px)',
-          transition: 'all 0.3s ease'
+          border: 'none',
+          cursor: 'pointer',
+          opacity: isHovered ? 1 : 0,
+          transform: isHovered ? 'translateY(0) scale(1)' : 'translateY(15px) scale(0.9)',
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          boxShadow: '0 8px 20px rgba(22, 54, 36, 0.25)',
+          zIndex: 3
         }}
-        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-        className="add-btn"
+        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1.1)'}
+        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
         >
-          <Plus size={20} />
+          <Plus size={20} strokeWidth={2.5} />
         </button>
       </div>
-      <div>
-        <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>{product.name}</h3>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem', fontStyle: 'italic', marginBottom: '0.5rem' }}>{product.scientificName}</p>
-        <p style={{ fontSize: '1.1rem', fontFamily: 'var(--font-serif)' }}>₹{product.price.toLocaleString()}</p>
+
+      <div style={{ padding: '0 0.5rem', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+          <p style={{ 
+            color: '#7a8c7c', 
+            fontSize: '0.7rem', 
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            fontWeight: '600'
+          }}>
+            {product.scientificName}
+          </p>
+          
+          {product.care && (
+            <div style={{ display: 'flex', gap: '0.4rem', opacity: isHovered ? 1 : 0.6, transition: 'opacity 0.3s ease' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.65rem', color: '#4a5b4c', background: 'rgba(22, 54, 36, 0.06)', padding: '0.25rem 0.5rem', borderRadius: '100px', fontWeight: '600' }}>
+                <Sun size={11} strokeWidth={2.5} />
+                {product.care.light}
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.65rem', color: '#4a5b4c', background: 'rgba(22, 54, 36, 0.06)', padding: '0.25rem 0.5rem', borderRadius: '100px', fontWeight: '600' }}>
+                <Droplets size={11} strokeWidth={2.5} />
+                {product.care.water}
+              </span>
+            </div>
+          )}
+        </div>
+
+        <h3 style={{ 
+          fontSize: '1.4rem', 
+          marginBottom: '0.5rem',
+          fontFamily: 'var(--font-serif)',
+          color: '#163624',
+          fontWeight: '500',
+          lineHeight: '1.2'
+        }}>
+          {product.name}
+        </h3>
+        
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.25rem' }}>
+          <p style={{ 
+            fontSize: '1.15rem', 
+            fontWeight: '600',
+            color: '#2a3a2d'
+          }}>
+            ₹{product.price.toLocaleString()}
+          </p>
+          <div style={{
+             width: isHovered ? '32px' : '0px',
+             height: '2px',
+             backgroundColor: '#163624',
+             transition: 'width 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+             opacity: isHovered ? 1 : 0
+          }} />
+        </div>
       </div>
     </div>
   );
@@ -120,7 +195,7 @@ export default function Collection() {
         pointerEvents: 'none',
         lineHeight: 1
       }}>
-        Planter
+        Plant
       </div>
 
       <h2 ref={headingRef} style={{
@@ -132,7 +207,7 @@ export default function Collection() {
         position: 'relative',
         zIndex: 1
       }}>
-        Select a planter design
+        Select
       </h2>
 
       <div ref={gridRef} style={{

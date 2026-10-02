@@ -346,7 +346,7 @@ export default function LandingHero() {
               <div className="hero-card-right">
                 <img 
                   className="hero-card-img hero-card-img-1"
-                  src={products[4]?.image || "/plant4-Photoroom.png"} 
+                  src={products[4]?.image || "/plants/plant5-Photoroom.png"} 
                   alt="Low Maintenance Plant"
                 />
               </div>

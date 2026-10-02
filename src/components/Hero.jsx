@@ -42,13 +42,8 @@ export default function Hero() {
         }
       });
 
-      tl.to(plantRef.current, {
-        y: '-10vh',
-        scale: 0.9,
-        ease: 'none'
-      }, 0)
-      .to(contentRef.current, {
-        y: '-30vh',
+      tl.to([plantRef.current, contentRef.current], {
+        y: '-20vh',
         opacity: 0,
         ease: 'none'
       }, 0);
@@ -144,36 +139,13 @@ export default function Hero() {
         </p>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-          <button style={{
-            background: 'var(--color-text-dark)',
-            color: 'var(--color-off-white)',
-            padding: '1.2rem 2.5rem',
-            textTransform: 'uppercase',
-            letterSpacing: '0.1em',
-            fontSize: '0.9rem',
-            borderRadius: '100px',
-            fontWeight: '500',
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.75rem',
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 15px 35px rgba(0,0,0,0.15)';
-            e.currentTarget.style.background = 'var(--color-accent-terracotta)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-            e.currentTarget.style.background = 'var(--color-text-dark)';
-          }}
+          <button 
+            className="hero-cta-button"
+            style={{ padding: '1.1rem 2.2rem', fontSize: '1rem' }}
+            onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            Discover Collection
-            <ArrowRight size={18} />
+            <span>Discover Collection</span>
+            <ArrowRight size={18} className="cta-arrow" />
           </button>
         </div>
       </div>

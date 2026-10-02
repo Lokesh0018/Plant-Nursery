@@ -1,13 +1,14 @@
 export const products = [
   {
     id: 'p1',
-    name: 'Featured Nursery Plant',
-    scientificName: "Premium Botanical Collection",
-    price: 1499,
+    name: 'Fiddle Leaf Fig',
+    scientificName: 'Ficus lyrata',
+    price: 2499,
     rating: 4.9,
     reviews: 124,
-    description: 'Bring natural elegance into your home with this beautiful premium plant. Carefully nurtured in our greenhouse for your living space.',
-    image: '/Main Hero Plant.png'
+    description: 'An architectural statement piece with massive, violin-shaped leaves. A stunning premium plant, carefully nurtured to bring natural elegance into your home.',
+    image: '/Main Hero Plant.png',
+    care: { light: 'Bright Indirect', water: '1x Week' }
   },
   {
     id: 'p2',
@@ -17,17 +18,19 @@ export const products = [
     rating: 4.8,
     reviews: 89,
     description: 'Famous for its natural leaf holes, this tropical beauty brings a dramatic jungle vibe to any bright indoor space.',
-    image: '/plant1-Photoroom.png'
+    image: '/plants/plant2-Photoroom.png',
+    care: { light: 'Medium Light', water: '1-2x Week' }
   },
   {
     id: 'p3',
-    name: 'Fiddle Leaf Fig',
-    scientificName: 'Ficus lyrata',
-    price: 2499,
+    name: 'Rubber Plant',
+    scientificName: 'Ficus elastica',
+    price: 1599,
     rating: 4.7,
     reviews: 210,
-    description: 'An architectural statement piece with massive, violin-shaped leaves. Perfect for brightly lit corners.',
-    image: '/plant2-Photoroom.png'
+    description: 'Features striking, glossy burgundy leaves. A robust grower that adds instant sophistication to your home decor.',
+    image: '/plants/plant3-Photoroom.png',
+    care: { light: 'Bright Light', water: 'When Dry' }
   },
   {
     id: 'p4',
@@ -37,7 +40,8 @@ export const products = [
     rating: 4.9,
     reviews: 315,
     description: 'Nearly indestructible and an excellent air purifier. The perfect structural plant for beginners and experts alike.',
-    image: '/plant3-Photoroom.png'
+    image: '/plants/plant4-Photoroom.png',
+    care: { light: 'Low to Bright', water: 'Every 2 Weeks' }
   },
   {
     id: 'p5',
@@ -46,8 +50,9 @@ export const products = [
     price: 1199,
     rating: 4.6,
     reviews: 78,
-    description: 'A graceful shade-loving plant that produces elegant white spathes and excels at filtering indoor air.',
-    image: '/plant4-Photoroom.png'
+    description: 'A graceful shade-loving plant that produces elegant white spathes and excels at filtering indoor air pollutants.',
+    image: '/plants/plant5-Photoroom.png',
+    care: { light: 'Low Light', water: 'When Drooping' }
   },
   {
     id: 'p6',
@@ -57,6 +62,29 @@ export const products = [
     rating: 4.8,
     reviews: 142,
     description: 'Transform your space into a tropical oasis with these majestic, paddle-shaped leaves that can reach up to the ceiling.',
-    image: '/plant5-Photoroom.png'
+    image: '/plants/plant6-Photoroom.png',
+    care: { light: 'Direct Sun', water: '1x Week' }
+  },
+  {
+    id: 'p7',
+    name: 'Golden Pothos',
+    scientificName: 'Epipremnum aureum',
+    price: 799,
+    rating: 4.9,
+    reviews: 420,
+    description: 'A beautiful trailing vine that is incredibly easy to care for and highly adaptable to various lighting conditions.',
+    image: '/plants/plant7-Photoroom.png',
+    care: { light: 'Any Light', water: 'When Dry' }
+  },
+  {
+    id: 'p8',
+    name: 'ZZ Plant',
+    scientificName: 'Zamioculcas zamiifolia',
+    price: 1299,
+    rating: 4.8,
+    reviews: 156,
+    description: 'Known for its wide, dark green leaves, this plant thrives on neglect and adds an architectural element to any room.',
+    image: '/plants/plant8-Photoroom.png',
+    care: { light: 'Low Light', water: '1x Month' }
   }
 ];
