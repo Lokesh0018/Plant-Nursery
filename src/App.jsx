@@ -11,7 +11,7 @@ import PotsHero from './components/PotsHero';
 import PotsCollection from './components/PotsCollection';
 import StorySection from './components/StorySection';
 import PlantCare from './components/PlantCare';
-import Newsletter from './components/Newsletter';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -29,7 +29,7 @@ function App() {
       <PotsCollection />
       <StorySection />
       <PlantCare />
-      <Newsletter />
+      <Contact />
       <Footer />
     </div>
   );
