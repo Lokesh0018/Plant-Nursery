@@ -13,6 +13,7 @@ export default function LandingHero() {
   const monsteraRef = useRef(null);
   const pothosRef = useRef(null);
   const snakePlantRef = useRef(null);
+  const succulentRef = useRef(null);
   const hangLeftRef = useRef(null);
   const hangRightRef = useRef(null);
 
@@ -66,6 +67,15 @@ export default function LandingHero() {
           ease: 'power2.out'
         });
 
+        // Layer 5: Small Succulent (Foreground Center/Right)
+        gsap.to(succulentRef.current, {
+          x: x * 28,
+          y: y * 18,
+          rotateZ: -x * 2,
+          duration: 0.75,
+          ease: 'power2.out'
+        });
+
         // Handwritten Badge
         gsap.to(badgeRef.current, {
           x: x * 10,
@@ -80,7 +90,7 @@ export default function LandingHero() {
       };
 
       const onMouseLeave = () => {
-        gsap.to([circleRef.current, monsteraRef.current, snakePlantRef.current, pothosRef.current, badgeRef.current, hangRightRef.current], {
+        gsap.to([circleRef.current, monsteraRef.current, snakePlantRef.current, pothosRef.current, succulentRef.current, badgeRef.current, hangRightRef.current], {
           x: 0,
           y: 0,
           rotateX: 0,
@@ -111,6 +121,7 @@ export default function LandingHero() {
         gsap.to(monsteraRef.current, { y: scrollY * -0.15, duration: 0.5 });
         gsap.to(snakePlantRef.current, { y: scrollY * -0.25, duration: 0.5 });
         gsap.to(pothosRef.current, { y: scrollY * -0.3, duration: 0.5 });
+        gsap.to(succulentRef.current, { y: scrollY * -0.35, duration: 0.5 });
         gsap.to(hangLeftRef.current, { y: scrollY * -0.2, duration: 0.5 });
         gsap.to(hangRightRef.current, { y: scrollY * -0.25, duration: 0.5 });
       };
@@ -119,6 +130,7 @@ export default function LandingHero() {
       gsap.to(monsteraRef.current, { y: '+=10', duration: 3, yoyo: true, repeat: -1, ease: 'sine.inOut' });
       gsap.to(snakePlantRef.current, { y: '+=8', duration: 2.5, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.5 });
       gsap.to(pothosRef.current, { y: '+=12', duration: 3.5, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 1 });
+      gsap.to(succulentRef.current, { y: '+=6', duration: 2.8, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.2 });
 
       // Subtle swaying for hanging plants
       gsap.to(hangLeftRef.current, { rotateZ: '+=1', duration: 4, yoyo: true, repeat: -1, ease: 'sine.inOut' });
@@ -226,6 +238,14 @@ export default function LandingHero() {
               src="/hero-main/Pothos plant.png"
               alt="Golden Pothos"
               className="hero-plant-pothos"
+            />
+            
+            {/* 5. Small Accent Succulent */}
+            <img 
+              ref={succulentRef}
+              src="/Small accent succulent.png"
+              alt="Small Succulent"
+              className="hero-plant-succulent"
             />
           </div>
 
