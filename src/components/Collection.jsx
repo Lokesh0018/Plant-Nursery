@@ -57,7 +57,7 @@ function ProductCard({ product }) {
         clone.remove();
         
         // Tell the Navbar to increment the cart
-        window.dispatchEvent(new CustomEvent('cart-updated'));
+        window.dispatchEvent(new CustomEvent('cart-updated', { detail: { item: product, quantity: 1 } }));
 
         gsap.fromTo(cartIcon, { scale: 1 }, { scale: 1.3, duration: 0.15, yoyo: true, repeat: 1 });
         

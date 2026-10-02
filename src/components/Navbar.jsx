@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Search, ArrowRight, Menu, X } from 'lucide-react';
 import './Navbar.css';
+import CartDrawer from './CartDrawer';
 
 export default function Navbar() {
   const darkGreen = '#163624';
@@ -11,12 +12,40 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  
+  const updateQuantity = (id, delta) => {
+    setCartItems(prev => {
+      return prev.map(item => {
+        if (item.id === id) {
+          const newQuantity = item.quantity + delta;
+          return newQuantity > 0 ? { ...item, quantity: newQuantity } : null;
+        }
+        return item;
+      }).filter(Boolean);
+    });
+    setCartCount(c => Math.max(0, c + delta));
+  };
   const navRef = React.useRef(null);
   const searchInputRef = React.useRef(null);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
 
   useEffect(() => {
-    const handleCartUpdate = () => setCartCount(c => c + 1);
+    const handleCartUpdate = (e) => {
+      const newItem = e.detail?.item;
+      const quantity = e.detail?.quantity || 1;
+      if (newItem) {
+        setCartItems(prev => {
+          const existing = prev.find(item => item.id === newItem.id);
+          if (existing) {
+            return prev.map(item => item.id === newItem.id ? { ...item, quantity: item.quantity + quantity } : item);
+          }
+          return [...prev, { ...newItem, quantity }];
+        });
+      }
+      setCartCount(c => c + quantity);
+    };
     window.addEventListener('cart-updated', handleCartUpdate);
     return () => window.removeEventListener('cart-updated', handleCartUpdate);
   }, []);
@@ -63,6 +92,7 @@ export default function Navbar() {
   }, [activeSection, isScrolled, isMobileOpen]);
 
   return (
+    <>
     <nav className={`navbar-container ${isScrolled ? 'scrolled' : ''} ${isSearchOpen ? 'search-open' : ''}`}>
       
       {/* Brand Logo */}
@@ -228,7 +258,8 @@ export default function Navbar() {
             display: 'flex',
             alignItems: 'center',
             padding: '4px'
-          }} aria-label="Cart">
+          }} aria-label="Cart"
+          onClick={() => setIsCartOpen(true)}>
             <ShoppingBag size={19} strokeWidth={1.8} />
           </button>
           {cartCount > 0 && (
@@ -292,5 +323,12 @@ export default function Navbar() {
 
       </div>
     </nav>
+    <CartDrawer 
+      isOpen={isCartOpen} 
+      onClose={() => setIsCartOpen(false)} 
+      cartItems={cartItems} 
+      updateQuantity={updateQuantity}
+    />
+    </>
   );
 }
