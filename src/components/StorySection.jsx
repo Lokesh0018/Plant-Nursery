@@ -187,7 +187,14 @@ export default function StorySection() {
         <p className="story-paragraph">
           That's why we don't just send you a plant—we provide the guidance, tools, and ongoing support you need to help your indoor garden thrive for years to come.
         </p>
-        <a href="#about" className="story-link">
+        <a 
+          href="#care" 
+          className="story-link"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('care')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
           Discover Our Philosophy <span>&rarr;</span>
         </a>
       </div>
