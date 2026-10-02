@@ -14,7 +14,7 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   font-family: var(--font-sans);
   box-sizing: border-box;
 }

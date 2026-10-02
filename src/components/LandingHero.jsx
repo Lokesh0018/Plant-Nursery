@@ -20,6 +20,7 @@ export default function LandingHero() {
   const leavesRef = useRef(null);
   const sunlightRef = useRef(null);
   const particlesRef = useRef(null);
+  const decorativeLeavesRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -88,9 +89,9 @@ export default function LandingHero() {
           ease: 'power2.out'
         });
 
-        // Hanging Plants
-        gsap.to(hangLeftRef.current, { rotateZ: x * 1.5, x: x * 2, y: y * 1, scaleX: -1, duration: 1.5, ease: 'power2.out' });
-        gsap.to(hangRightRef.current, { rotateZ: x * 2, x: x * 3, y: y * 1, duration: 1.4, ease: 'power2.out' });
+        // Hanging Plants (do not animate y to prevent conflicts with scroll parallax)
+        gsap.to(hangLeftRef.current, { rotateZ: x * 1.5, x: x * 2, scaleX: -1, duration: 1.5, ease: 'power2.out' });
+        gsap.to(hangRightRef.current, { rotateZ: x * 2, x: x * 3, duration: 1.4, ease: 'power2.out' });
         // Sunlight & Particles (slow, background)
         gsap.to(sunlightRef.current, { x: x * 5, y: y * 5, duration: 2, ease: 'power2.out' });
         gsap.to(particlesRef.current, { x: x * 8, y: y * 8, duration: 2.5, ease: 'power2.out' });
@@ -100,13 +101,16 @@ export default function LandingHero() {
 
         // Floating Leaves
         gsap.to(leavesRef.current, { x: x * 30, y: y * 25, rotateZ: x * 5, duration: 1, ease: 'power2.out' });
+        
+        // Bottom Right Decorative Leaves
+        gsap.to(decorativeLeavesRef.current, { x: x * 20, y: y * 15, rotateZ: -x * 2, duration: 1.2, ease: 'power2.out' });
       };
 
       const onMouseLeave = () => {
         gsap.to([
           circleRef.current, monsteraRef.current, snakePlantRef.current, 
           pothosRef.current, succulentRef.current, badgeRef.current, 
-          hangRightRef.current, vineRef.current, leavesRef.current, 
+          vineRef.current, leavesRef.current, decorativeLeavesRef.current,
           sunlightRef.current, particlesRef.current
         ], {
           x: 0,
@@ -117,13 +121,22 @@ export default function LandingHero() {
           duration: 1.5,
           ease: 'power3.out'
         });
+        
+        // Hanging plants reset (without y)
         gsap.to(hangLeftRef.current, {
           x: 0,
-          y: 0,
           rotateX: 0,
           rotateY: 0,
           rotateZ: 0,
           scaleX: -1,
+          duration: 1.5,
+          ease: 'power3.out'
+        });
+        gsap.to(hangRightRef.current, {
+          x: 0,
+          rotateX: 0,
+          rotateY: 0,
+          rotateZ: 0,
           duration: 1.5,
           ease: 'power3.out'
         });
@@ -140,8 +153,8 @@ export default function LandingHero() {
         gsap.to(snakePlantRef.current, { y: scrollY * -0.25, duration: 0.5 });
         gsap.to(pothosRef.current, { y: scrollY * -0.3, duration: 0.5 });
         gsap.to(succulentRef.current, { y: scrollY * -0.35, duration: 0.5 });
-        gsap.to(hangLeftRef.current, { y: scrollY * -0.2, duration: 0.5 });
-        gsap.to(hangRightRef.current, { y: scrollY * -0.25, duration: 0.5 });
+        gsap.to(hangLeftRef.current, { y: scrollY * 1.01, duration: 0.5 });
+        gsap.to(hangRightRef.current, { y: scrollY * 1.01, duration: 0.5 });
         gsap.to(vineRef.current, { y: scrollY * -0.2, duration: 0.5 });
         gsap.to(leavesRef.current, { y: scrollY * -0.4, duration: 0.5 });
         gsap.to(sunlightRef.current, { y: scrollY * -0.05, duration: 0.5 });
@@ -409,6 +422,7 @@ export default function LandingHero() {
 
         {/* Botanical Leaves overlapping the right edge */}
         <img 
+          ref={decorativeLeavesRef}
           src="/leaves/vecteezy_lush-green-tropical-foliage-arrangement-featuring-monstera_60578533.png"
           alt="Fresh Botanical Foliage"
           className="hero-decorative-leaves"
