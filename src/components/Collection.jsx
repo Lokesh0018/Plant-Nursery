@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { products } from '../data/products';
 import { Plus, Sun, Droplets } from 'lucide-react';
+import './Collection.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -147,7 +148,7 @@ function ProductCard({ product }) {
       </div>
 
       <div style={{ padding: '0 0.5rem', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
           <p style={{ 
             color: '#7a8c7c', 
             fontSize: '0.7rem', 
@@ -173,7 +174,7 @@ function ProductCard({ product }) {
         </div>
 
         <h3 style={{ 
-          fontSize: '1.4rem', 
+          fontSize: 'clamp(1.1rem, 3vw, 1.4rem)', 
           marginBottom: '0.5rem',
           fontFamily: 'var(--font-serif)',
           color: '#163624',
@@ -274,73 +275,23 @@ export default function Collection() {
   }, []);
 
   return (
-    <section id="collection" ref={sectionRef} style={{
-      padding: '10vh 5vw',
-      backgroundColor: 'var(--color-warm-cream)',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
+    <section id="collection" ref={sectionRef} className="collection-section">
       {/* Huge background text */}
-      <div ref={bgTextRef} style={{
-        position: 'absolute',
-        top: '5vh',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        fontSize: '25vw',
-        fontWeight: 'bold',
-        color: 'rgba(255, 255, 255, 0.4)',
-        zIndex: 0,
-        whiteSpace: 'nowrap',
-        pointerEvents: 'none',
-        lineHeight: 1
-      }}>
+      <div ref={bgTextRef} className="collection-bg-text">
         Plant
       </div>
 
-      <div ref={headingRef} style={{
-        textAlign: 'center',
-        marginBottom: '4rem',
-        position: 'relative',
-        zIndex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}>
-        <span style={{
-          display: 'block',
-          fontSize: '0.75rem',
-          textTransform: 'uppercase',
-          letterSpacing: '0.2em',
-          color: '#4a5b4c',
-          fontWeight: '600',
-          marginBottom: '1rem'
-        }}>
+      <div ref={headingRef} className="collection-header">
+        <span className="collection-subtitle">
           Our Curated
         </span>
-        <h2 style={{
-          fontSize: '3.5rem',
-          fontFamily: 'var(--font-serif)',
-          color: '#163624',
-          fontWeight: '400',
-          lineHeight: '1.1',
-          margin: 0
-        }}>
+        <h2 className="collection-title">
           Select
         </h2>
-        <div style={{
-          width: '40px',
-          height: '2px',
-          backgroundColor: '#163624',
-          marginTop: '1.5rem',
-          opacity: 0.2
-        }} />
+        <div className="collection-divider" />
       </div>
 
-      <div ref={gridRef} style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-        gap: '4rem 2rem'
-      }}>
+      <div ref={gridRef} className="collection-grid">
         {products.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}

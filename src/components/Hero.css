@@ -1,0 +1,112 @@
+.featured-hero-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 5vh 5vw 0 5vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-hero-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  background-color: var(--color-warm-cream);
+  z-index: 0;
+}
+
+.featured-hero-image-container {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.featured-hero-image {
+  height: 75vh;
+  object-fit: contain;
+  transform-origin: bottom center;
+  filter: drop-shadow(0 30px 20px rgba(0,0,0,0.15));
+  z-index: 10;
+}
+
+.featured-hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 4rem;
+  z-index: 5;
+}
+
+.featured-hero-title {
+  font-size: clamp(3.5rem, 5vw, 5.5rem);
+  line-height: 1.05;
+  margin-bottom: 0.75rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--color-text-dark);
+}
+
+.featured-hero-subtitle {
+  font-size: 1.75rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.featured-hero-description {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 3.5rem;
+  color: var(--color-text-secondary);
+  font-weight: 300;
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+  .featured-hero-section {
+    flex-direction: column;
+    padding-top: 10vh;
+  }
+
+  .featured-hero-image-container {
+    flex: none;
+    height: 40vh;
+    width: 100%;
+  }
+
+  .featured-hero-image {
+    height: 40vh;
+  }
+
+  .featured-hero-content {
+    flex: none;
+    padding-left: 0;
+    align-items: center;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .featured-hero-title {
+    font-size: 3rem;
+  }
+
+  .featured-hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .featured-hero-description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+}

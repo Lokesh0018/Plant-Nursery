@@ -316,75 +316,77 @@ export default function LandingHero() {
             </svg>
           </div>
 
-          {/* Right Floating Card 1: Low Maintenance Plants */}
-          <div 
-            className="hero-floating-card hero-floating-card-1"
-            style={{ cursor: 'pointer' }}
-            onClick={() => document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            {/* Background Blob/Circle behind the image */}
-            <div className="hero-card-blob hero-card-blob-1" />
+          <div className="hero-floating-cards-wrapper">
+            {/* Right Floating Card 1: Low Maintenance Plants */}
+            <div 
+              className="hero-floating-card hero-floating-card-1"
+              style={{ cursor: 'pointer' }}
+              onClick={() => document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              {/* Background Blob/Circle behind the image */}
+              <div className="hero-card-blob hero-card-blob-1" />
 
-            <div className="hero-card-content">
-              {/* Left Column: Text & Button */}
-              <div className="hero-card-left">
-                <div>
-                  <h3 className="hero-card-title hero-card-title-1">
-                    Low<br/>Maintenance<br/>Plants
-                  </h3>
-                  <p className="hero-card-desc hero-card-desc-1">
-                    Perfect for<br/>busy lives.
-                  </p>
+              <div className="hero-card-content">
+                {/* Left Column: Text & Button */}
+                <div className="hero-card-left">
+                  <div>
+                    <h3 className="hero-card-title hero-card-title-1">
+                      Low<br/>Maintenance<br/>Plants
+                    </h3>
+                    <p className="hero-card-desc hero-card-desc-1">
+                      Perfect for<br/>busy lives.
+                    </p>
+                  </div>
+
+                  <div className="hero-card-btn hero-card-btn-1">
+                    <ArrowRight size={13} strokeWidth={2} />
+                  </div>
                 </div>
 
-                <div className="hero-card-btn hero-card-btn-1">
-                  <ArrowRight size={13} strokeWidth={2} />
+                {/* Right Column: Image */}
+                <div className="hero-card-right">
+                  <img 
+                    className="hero-card-img hero-card-img-1"
+                    src={products[4]?.image || "/plants/plant5-Photoroom.png"} 
+                    alt="Low Maintenance Plant"
+                  />
                 </div>
-              </div>
-
-              {/* Right Column: Image */}
-              <div className="hero-card-right">
-                <img 
-                  className="hero-card-img hero-card-img-1"
-                  src={products[4]?.image || "/plants/plant5-Photoroom.png"} 
-                  alt="Low Maintenance Plant"
-                />
               </div>
             </div>
-          </div>
 
-          {/* Right Floating Card 2: Stylish Plant Pots */}
-          <div className="hero-floating-card hero-floating-card-2"
-               onClick={() => document.getElementById('pots')?.scrollIntoView({ behavior: 'smooth' })}
-               style={{ cursor: 'pointer' }}
-          >
-            {/* Background Blob/Circle behind the image */}
-            <div className="hero-card-blob hero-card-blob-2" />
+            {/* Right Floating Card 2: Stylish Plant Pots */}
+            <div className="hero-floating-card hero-floating-card-2"
+                 onClick={() => document.getElementById('pots')?.scrollIntoView({ behavior: 'smooth' })}
+                 style={{ cursor: 'pointer' }}
+            >
+              {/* Background Blob/Circle behind the image */}
+              <div className="hero-card-blob hero-card-blob-2" />
 
-            <div className="hero-card-content">
-              {/* Left Column: Text & Button */}
-              <div className="hero-card-left">
-                <div>
-                  <h3 className="hero-card-title hero-card-title-2">
-                    Stylish<br/>Plant Pots
-                  </h3>
-                  <p className="hero-card-desc hero-card-desc-2">
-                    Modern designs<br/>for every space.
-                  </p>
+              <div className="hero-card-content">
+                {/* Left Column: Text & Button */}
+                <div className="hero-card-left">
+                  <div>
+                    <h3 className="hero-card-title hero-card-title-2">
+                      Stylish<br/>Plant Pots
+                    </h3>
+                    <p className="hero-card-desc hero-card-desc-2">
+                      Modern designs<br/>for every space.
+                    </p>
+                  </div>
+
+                  <div className="hero-card-btn hero-card-btn-2">
+                    <ArrowRight size={13} strokeWidth={2} />
+                  </div>
                 </div>
 
-                <div className="hero-card-btn hero-card-btn-2">
-                  <ArrowRight size={13} strokeWidth={2} />
+                {/* Right Column: Image */}
+                <div className="hero-card-right">
+                  <img 
+                    className="hero-card-img hero-card-img-2"
+                    src="/pots.png" 
+                    alt="Stylish Plant Pot"
+                  />
                 </div>
-              </div>
-
-              {/* Right Column: Image */}
-              <div className="hero-card-right">
-                <img 
-                  className="hero-card-img hero-card-img-2"
-                  src="/pots.png" 
-                  alt="Stylish Plant Pot"
-                />
               </div>
             </div>
           </div>

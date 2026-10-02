@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Search, ArrowRight } from 'lucide-react';
+import { ShoppingBag, Search, ArrowRight, Menu, X } from 'lucide-react';
+import './Navbar.css';
 
 export default function Navbar() {
   const darkGreen = '#163624';
@@ -8,6 +9,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const navRef = React.useRef(null);
   const searchInputRef = React.useRef(null);
@@ -41,14 +43,12 @@ export default function Navbar() {
       }
     };
     window.addEventListener('scroll', handleScroll);
-    // Initial check
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Update sliding indicator position
   useEffect(() => {
-    if (navRef.current) {
+    if (navRef.current && !isMobileOpen) {
       const activeItem = navRef.current.querySelector('.active-nav-item');
       if (activeItem) {
         setIndicatorStyle({
@@ -60,35 +60,13 @@ export default function Navbar() {
         setIndicatorStyle(prev => ({ ...prev, opacity: 0 }));
       }
     }
-  }, [activeSection, isScrolled]);
+  }, [activeSection, isScrolled, isMobileOpen]);
 
   return (
-    <nav style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      padding: isScrolled ? '1rem 5vw' : '1.75rem 5vw 1rem 5vw',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      zIndex: 100,
-      backgroundColor: isScrolled ? 'rgba(252, 251, 246, 0.85)' : 'transparent',
-      backdropFilter: isScrolled ? 'blur(16px)' : 'none',
-      WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
-      boxShadow: isScrolled ? '0 4px 20px rgba(22, 54, 36, 0.04)' : 'none',
-      borderBottom: isScrolled ? '1px solid rgba(22, 54, 36, 0.05)' : '1px solid transparent',
-      transition: 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)'
-    }}>
+    <nav className={`navbar-container ${isScrolled ? 'scrolled' : ''} ${isSearchOpen ? 'search-open' : ''}`}>
+      
       {/* Brand Logo */}
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.6rem',
-        cursor: 'pointer'
-      }}>
-        {/* Leaf icon logo */}
+      <div className="nav-brand">
         <div style={{
           width: '24px',
           height: '24px',
@@ -101,7 +79,7 @@ export default function Navbar() {
             <path d="M12 2C6.5 2 2 6.5 2 12c0 3.5 2 6.5 5 8 .5-2.5 2-6.5 5-9 3-2.5 6.5-4 9-4.5C20.5 4 16.5 2 12 2z"/>
           </svg>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="nav-brand-text" style={{ display: 'flex', flexDirection: 'column' }}>
           <span style={{
             fontFamily: 'var(--font-serif)',
             fontSize: '1.5rem',
@@ -124,20 +102,12 @@ export default function Navbar() {
           </span>
         </div>
       </div>
+
       {/* Center Nav Links */}
-      <ul ref={navRef} style={{
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '2.5rem',
-        fontSize: '0.9rem',
-        fontWeight: '500',
-        color: '#2a3a2d',
-        margin: 0,
-        padding: 0
-      }}>
+      <ul ref={navRef} className={`nav-links ${isMobileOpen ? 'mobile-open' : ''}`}>
+        
         {/* Sliding Indicator Dot */}
-        <div style={{
+        <div className="nav-indicator" style={{
           position: 'absolute',
           bottom: '-7px',
           height: '4px',
@@ -160,13 +130,14 @@ export default function Navbar() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 fontWeight: isActive ? '600' : '500',
-                color: isActive ? darkGreen : textMuted,
+                color: isActive && !isMobileOpen ? darkGreen : (isMobileOpen ? '#fff' : textMuted),
                 transition: 'all 0.3s ease',
                 position: 'relative'
               }}
-              onMouseEnter={(e) => { if(!isActive) e.currentTarget.style.color = darkGreen }}
-              onMouseLeave={(e) => { if(!isActive) e.currentTarget.style.color = textMuted }}
+              onMouseEnter={(e) => { if(!isActive && !isMobileOpen) e.currentTarget.style.color = darkGreen }}
+              onMouseLeave={(e) => { if(!isActive && !isMobileOpen) e.currentTarget.style.color = textMuted }}
               onClick={() => {
+                setIsMobileOpen(false);
                 if (item === 'Plants') {
                   document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' });
                 } else if (item === 'Pots') {
@@ -187,61 +158,65 @@ export default function Navbar() {
       </ul>
       
       {/* Right Controls */}
-      <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '1.25rem' }}>
-        {/* Animated Search Bar */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          background: isSearchOpen ? 'rgba(22, 54, 36, 0.06)' : 'transparent',
-          borderRadius: '100px',
-          padding: isSearchOpen ? '0.4rem 0.8rem' : '4px',
-          transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-          width: isSearchOpen ? '180px' : '27px',
-          overflow: 'hidden'
-        }}>
-          <button style={{
-            border: 'none',
-            background: 'transparent',
-            cursor: 'pointer',
-            color: '#2a3a2d',
+      <div className="nav-right">
+        {/* Animated Search Bar Wrapper */}
+        <div style={{ position: 'relative', width: '27px', height: '27px', display: 'flex', alignItems: 'center' }}>
+          <div className={`nav-search ${isSearchOpen ? 'open' : ''}`} style={{
+            position: 'absolute',
+            right: 0,
             display: 'flex',
             alignItems: 'center',
-            padding: 0,
-            minWidth: '19px'
-          }} 
-          aria-label="Search"
-          onClick={() => {
-            if (!isSearchOpen) {
-              setIsSearchOpen(true);
-              setTimeout(() => searchInputRef.current?.focus(), 100);
-            }
-          }}
-          >
-            <Search size={19} strokeWidth={1.8} />
-          </button>
-          
-          <input 
-            ref={searchInputRef}
-            type="text" 
-            placeholder="Find plants..." 
-            style={{
+            background: isSearchOpen ? 'rgba(22, 54, 36, 0.06)' : 'transparent',
+            borderRadius: '100px',
+            padding: isSearchOpen ? '0.4rem 0.8rem' : '4px',
+            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+            width: isSearchOpen ? (window.innerWidth <= 900 ? '130px' : '180px') : '27px',
+            overflow: 'hidden'
+          }}>
+            <button style={{
               border: 'none',
               background: 'transparent',
-              outline: 'none',
-              width: isSearchOpen ? '100%' : '0',
-              opacity: isSearchOpen ? 1 : 0,
-              paddingLeft: isSearchOpen ? '0.6rem' : '0',
-              color: darkGreen,
-              fontSize: '0.85rem',
-              fontWeight: '500',
-              transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
-            }}
-            onBlur={(e) => {
-              if (e.target.value === '') {
-                setIsSearchOpen(false);
+              cursor: 'pointer',
+              color: '#2a3a2d',
+              display: 'flex',
+              alignItems: 'center',
+              padding: 0,
+              minWidth: '19px'
+            }} 
+            aria-label="Search"
+            onClick={() => {
+              if (!isSearchOpen) {
+                setIsSearchOpen(true);
+                setTimeout(() => searchInputRef.current?.focus(), 100);
               }
             }}
-          />
+            >
+              <Search size={19} strokeWidth={1.8} />
+            </button>
+            
+            <input 
+              ref={searchInputRef}
+              type="text" 
+              placeholder="Find plants..." 
+              style={{
+                border: 'none',
+                background: 'transparent',
+                outline: 'none',
+                width: isSearchOpen ? '100%' : '0',
+                opacity: isSearchOpen ? 1 : 0,
+                paddingLeft: isSearchOpen ? '0.6rem' : '0',
+                color: darkGreen,
+                fontSize: '0.85rem',
+                fontWeight: '500',
+                transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+              }}
+              onBlur={(e) => {
+                if (e.target.value === '') {
+                  setIsSearchOpen(false);
+                }
+              }}
+            />
+          </div>
         </div>
 
         <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -277,7 +252,7 @@ export default function Navbar() {
           )}
         </div>
 
-        <button style={{
+        <button className="shop-now-btn" style={{
           backgroundColor: darkGreen,
           color: '#ffffff',
           padding: '0.65rem 1.3rem',
@@ -289,7 +264,8 @@ export default function Navbar() {
           fontWeight: '500',
           cursor: 'pointer',
           transition: 'all 0.2s ease',
-          boxShadow: '0 4px 12px rgba(22, 54, 36, 0.15)'
+          boxShadow: '0 4px 12px rgba(22, 54, 36, 0.15)',
+          border: 'none'
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'translateY(-1px)';
@@ -298,10 +274,22 @@ export default function Navbar() {
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = 'translateY(0)';
           e.currentTarget.style.opacity = '1';
+        }}
+        onClick={() => {
+          document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' });
         }}>
           <span>Shop Now</span>
           <ArrowRight size={14} />
         </button>
+
+        {/* Mobile Menu Toggle */}
+        <button 
+          className="mobile-menu-btn"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+        >
+          {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
       </div>
     </nav>
   );
