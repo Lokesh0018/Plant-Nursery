@@ -76,3 +76,37 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Custom Elegant Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-warm-cream, #DFCCB6);
+  border-left: 1px solid rgba(22, 54, 36, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(22, 54, 36, 0.3);
+  border-radius: 10px;
+  border: 3px solid var(--color-warm-cream, #DFCCB6);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(22, 54, 36, 0.6);
+}
+
+/* Horizontal Scrollbars (e.g. mobile lists) */
+::-webkit-scrollbar:horizontal {
+  height: 6px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  border: none;
+  background-color: rgba(22, 54, 36, 0.2);
+}
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background-color: rgba(22, 54, 36, 0.4);
+}
