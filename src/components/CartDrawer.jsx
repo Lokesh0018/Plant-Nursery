@@ -1,8 +1,22 @@
-import React, { useEffect } from 'react';
-import { X, ShoppingBag, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, ShoppingBag, ArrowRight, Loader2, Check } from 'lucide-react';
 import './CartDrawer.css';
 
 export default function CartDrawer({ isOpen, onClose, cartItems = [], updateQuantity }) {
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutSuccess, setCheckoutSuccess] = useState(false);
+
+  const handleCheckout = () => {
+    setIsCheckingOut(true);
+    setTimeout(() => {
+      setIsCheckingOut(false);
+      setCheckoutSuccess(true);
+      setTimeout(() => {
+        setCheckoutSuccess(false);
+      }, 2500);
+    }, 1500);
+  };
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -97,7 +111,53 @@ export default function CartDrawer({ isOpen, onClose, cartItems = [], updateQuan
               <span>₹{subtotal.toLocaleString()}</span>
             </div>
             <p className="shipping-note" style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '1rem' }}>Shipping and taxes calculated at checkout.</p>
-            <button className="checkout-btn" style={{ width: '100%', background: 'var(--color-text-dark)', color: 'white', padding: '1rem', border: 'none', borderRadius: '8px', fontWeight: '600', fontSize: '1rem', cursor: 'pointer' }}>Checkout</button>
+            <button 
+              className="checkout-btn" 
+              onClick={handleCheckout}
+              disabled={isCheckingOut || checkoutSuccess}
+              style={{ 
+                width: '100%', 
+                background: checkoutSuccess ? '#10b981' : 'var(--color-text-dark)', 
+                color: 'white', 
+                padding: '1rem', 
+                border: 'none', 
+                borderRadius: '8px', 
+                fontWeight: '600', 
+                fontSize: '1rem', 
+                cursor: (isCheckingOut || checkoutSuccess) ? 'default' : 'pointer',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '0.5rem',
+                transition: 'all 0.3s ease',
+                opacity: isCheckingOut ? 0.9 : 1
+              }}
+            >
+              {isCheckingOut ? (
+                <>
+                  <Loader2 size={20} style={{ animation: 'spin 1s linear infinite' }} />
+                  <span>Processing...</span>
+                </>
+              ) : checkoutSuccess ? (
+                <>
+                  <Check size={20} style={{ animation: 'scaleIn 0.3s ease-out' }} />
+                  <span>Order Placed!</span>
+                </>
+              ) : (
+                'Checkout'
+              )}
+            </button>
+            <style>{`
+              @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+              }
+              @keyframes scaleIn {
+                from { transform: scale(0); opacity: 0; }
+                50% { transform: scale(1.2); opacity: 1; }
+                to { transform: scale(1); opacity: 1; }
+              }
+            `}</style>
           </div>
         )}
       </div>
