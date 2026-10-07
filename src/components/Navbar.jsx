@@ -17,6 +17,11 @@ export default function Navbar() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   
+  const clearCart = () => {
+    setCartItems([]);
+    setCartCount(0);
+  };
+  
   const updateQuantity = (id, delta) => {
     setCartItems(prev => {
       return prev.map(item => {
@@ -352,6 +357,7 @@ export default function Navbar() {
       onClose={() => setIsCartOpen(false)} 
       cartItems={cartItems} 
       updateQuantity={updateQuantity}
+      clearCart={clearCart}
     />
     </>
   );

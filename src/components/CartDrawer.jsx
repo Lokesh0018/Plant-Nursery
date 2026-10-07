@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, ShoppingBag, ArrowRight, Loader2, Check } from 'lucide-react';
 import './CartDrawer.css';
 
-export default function CartDrawer({ isOpen, onClose, cartItems = [], updateQuantity }) {
+export default function CartDrawer({ isOpen, onClose, cartItems = [], updateQuantity, clearCart }) {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
 
@@ -13,7 +13,8 @@ export default function CartDrawer({ isOpen, onClose, cartItems = [], updateQuan
       setCheckoutSuccess(true);
       setTimeout(() => {
         setCheckoutSuccess(false);
-      }, 2500);
+        if (clearCart) clearCart();
+      }, 2000); // clear cart after showing success for 2 seconds
     }, 1500);
   };
 

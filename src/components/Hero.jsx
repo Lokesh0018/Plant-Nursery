@@ -94,7 +94,13 @@ export default function Hero() {
           <button 
             className="hero-cta-button"
             style={{ padding: '1.1rem 2.2rem', fontSize: '1rem' }}
-            onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => {
+              const el = document.getElementById('collection');
+              if (el) {
+                const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+              }
+            }}
           >
             <span>Discover Collection</span>
             <ArrowRight size={18} className="cta-arrow" />

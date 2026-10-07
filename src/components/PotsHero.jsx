@@ -91,6 +91,13 @@ export default function PotsHero() {
             <button 
               className="hero-cta-button"
               style={{ padding: '1.1rem 2.2rem', fontSize: '1rem' }}
+              onClick={() => {
+                const el = document.getElementById('pots-collection');
+                if (el) {
+                  const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+              }}
             >
               <span>Explore Pots</span>
               <ArrowRight size={18} className="cta-arrow" />
