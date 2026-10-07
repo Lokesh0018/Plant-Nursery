@@ -46,7 +46,7 @@ const LoadingScreen = ({ onComplete }) => {
           <div className="loading-ring"></div>
         </div>
         <div className="loading-text-container">
-          <h2 className="loading-brand">Leafora</h2>
+          <h2 className="loading-brand">Lushmere</h2>
           <p key={`text-${stage}`} className="loading-label">{currentLabel}</p>
         </div>
         <div className="loading-progress-container">

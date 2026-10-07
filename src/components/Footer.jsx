@@ -39,7 +39,7 @@ export default function Footer() {
         
         <div className="footer-top-grid footer-reveal">
           <div className="footer-brand-col">
-            <h3 className="footer-brand-name">LEÁFORA</h3>
+            <h3 className="footer-brand-name">LUSHMERE</h3>
             <p className="footer-brand-desc">
               Cultivating spaces with nature's finest. Elevate your interior with our curated botanical collection.
             </p>
@@ -71,7 +71,7 @@ export default function Footer() {
         <div className="footer-divider footer-reveal" />
 
         <div className="footer-bottom footer-reveal">
-          <p className="footer-copyright">&copy; {new Date().getFullYear()} Leáfora. All rights reserved.</p>
+          <p className="footer-copyright">&copy; {new Date().getFullYear()} Lushmere. All rights reserved.</p>
 
           <div className="footer-socials">
             <a href="#" className="social-link">Instagram</a>

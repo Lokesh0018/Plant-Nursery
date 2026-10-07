@@ -120,7 +120,7 @@ export default function Navbar() {
             letterSpacing: '-0.02em',
             lineHeight: 1
           }}>
-            Leafora
+            Lushmere
           </span>
           <span style={{
             fontSize: '0.45rem',
