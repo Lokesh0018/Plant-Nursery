@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import './Contact.css';
 
 export default function Contact() {
   const [email, setEmail] = useState('');
   const [isHovered, setIsHovered] = useState(false);
+  const [status, setStatus] = useState('idle'); // 'idle' | 'submitting' | 'success'
   const sectionRef = useRef(null);
   const buttonRef = useRef(null);
 
@@ -82,9 +83,15 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email) {
-      alert("Thanks for connecting!");
-      setEmail('');
+    if (email && status === 'idle') {
+      setStatus('submitting');
+      // Simulate network request
+      setTimeout(() => {
+        setStatus('success');
+        setEmail('');
+        // Reset after 3 seconds
+        setTimeout(() => setStatus('idle'), 3000);
+      }, 800);
     }
   };
 
@@ -120,13 +127,20 @@ export default function Contact() {
                 <button 
                   ref={buttonRef}
                   type="submit" 
-                  className="premium-submit"
+                  className={`premium-submit ${status !== 'idle' ? status : ''}`}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={handleMouseLeave}
+                  disabled={status !== 'idle'}
                 >
-                  <span className="submit-text">Subscribe</span>
-                  <span className={`submit-icon-wrapper ${isHovered ? 'hovered' : ''}`}>
-                    <ArrowRight size={18} strokeWidth={1.5} />
+                  <span className="submit-text">
+                    {status === 'idle' ? 'Subscribe' : status === 'submitting' ? 'Sending...' : 'Subscribed!'}
+                  </span>
+                  <span className={`submit-icon-wrapper ${isHovered && status === 'idle' ? 'hovered' : ''}`}>
+                    {status === 'success' ? (
+                      <Check size={18} strokeWidth={2} className="success-icon" />
+                    ) : (
+                      <ArrowRight size={18} strokeWidth={1.5} />
+                    )}
                   </span>
                 </button>
               </div>

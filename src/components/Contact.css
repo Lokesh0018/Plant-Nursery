@@ -140,9 +140,35 @@
   will-change: transform;
 }
 
-.premium-submit:hover {
+.premium-submit:hover:not(:disabled) {
   background: var(--color-forest-dark);
   box-shadow: 0 10px 20px rgba(23, 39, 29, 0.15);
+}
+
+.premium-submit.submitting {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.premium-submit.success {
+  background: #3c7a51; /* A nice natural green for success */
+  color: #fff;
+  cursor: default;
+}
+
+.success-icon {
+  animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .submit-icon-wrapper {
